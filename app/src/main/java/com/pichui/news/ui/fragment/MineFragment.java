@@ -14,6 +14,8 @@ import com.pi.core.uikit.recycleview.UniversalItemDecoration;
 import com.pichui.news.R;
 import com.pichui.news.ui.activity.MainActivity;
 import com.pichui.news.ui.activity.Test1Activity;
+import com.pichui.news.ui.activity.TestGridActivity;
+import com.pichui.news.ui.activity.TestMainActivity;
 import com.pichui.news.ui.adapter.base.SectionedSpanSizeLookup;
 import com.pichui.news.ui.adapter.mine.MineAdapter;
 import com.pichui.news.ui.adapter.mine.MineModel;
@@ -79,9 +81,20 @@ public class MineFragment extends BaseFragment {
 
             @Override
             public void onItemClick(int section,int position) {
+                Intent intent = new Intent();
                 MineModel model = mineMoelEntities.get(section).getModelList().get(position);
                 DebugLog.e("model title== "+model.getTitle());
                 DebugLog.e("model type== "+model.getType());
+                switch (model.getTitle()){
+                    case "测试代码":
+                        intent.setClass(mActivity, TestMainActivity.class);
+                        mActivity.startActivity(intent);
+                        break;
+                    default:
+                        UIUtils.showToast("暂未开放相关功能！");
+                        break;
+                }
+
             }
         });
 
@@ -135,6 +148,12 @@ public class MineFragment extends BaseFragment {
 
         model6.setType("1");
         models3.add(model6);
+
+        MineModel model7 = new MineModel();
+        model7.setTitle("测试代码");
+
+        model7.setType("1");
+        models3.add(model7);
 
         entity3.setModelList(models3);
 

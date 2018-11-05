@@ -5,7 +5,15 @@
     android:layout_height="wrap_content">
     <View
         android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/selector_grey" />
+    <View
+        android:layout_width="match_parent"
         android:layout_height="10dp"
         android:background="@color/color_F3F5F4"
         />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/selector_grey" />
 </LinearLayout>

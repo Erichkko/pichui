@@ -20,6 +20,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.activity.Test1Activity" />
+        <activity android:name=".ui.activity.TestGridActivity" />
+        <activity android:name=".ui.activity.TestMainActivity" />
 
         <service android:name=".ui.service.DownloadIntentService" />
     </application>

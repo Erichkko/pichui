@@ -106,11 +106,23 @@ public class MineAdapter extends BaseSectionedRecyclerViewAdapter<MineHeaderHold
         MineMoelEntity mineMoelEntity = modelList.get(section);
         MineModel mineModel = mineMoelEntity.getModelList().get(position);
 
-        if (holder instanceof MineBaseCellHolder){
-            ((MineBaseCellHolder) holder).tvTitle.setText(mineModel.getTitle());
-        }else if (holder instanceof MineSubTitleCellHolder){
+        if (holder instanceof MineSubTitleCellHolder){
             ((MineSubTitleCellHolder) holder).tvTitle.setText(mineModel.getTitle());
             ((MineSubTitleCellHolder) holder).tvSubtitle.setText(mineModel.getSubTitle());
+        }else if (holder instanceof MineBaseCellHolder){
+            ((MineBaseCellHolder) holder).tvTitle.setText(mineModel.getTitle());
+        }
+
+        if (position == 0){
+            ((MineCellHolder)holder).topLine.setVisibility(View.GONE);
+        }else {
+            ((MineCellHolder)holder).topLine.setVisibility(View.VISIBLE);
+        }
+
+        if ((section+1) == modelList.size() && (position+1) == modelList.get(section).getModelList().size()){
+            ((MineCellHolder)holder).bottomLine.setVisibility(View.VISIBLE);
+        }else {
+            ((MineCellHolder)holder).bottomLine.setVisibility(View.GONE);
         }
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {

@@ -1,25 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--京东特供-->
-<RelativeLayout style="@style/MineFunctionRl"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/tv_title"
-        style="@style/MineFunctionTvLeft"
-        android:text="@string/JD"
-        android:textColor="@color/color_222222"
-        />
+   <include
+       layout="@layout/view_line_1"/>
 
-    <ImageView
-        android:id="@+id/iv_jd_arrow"
-        style="@style/MineFunctionArrow"
-        android:background="@mipmap/setting_arrow"
-        />
+    <RelativeLayout style="@style/MineFunctionRl">
 
-    <TextView
-        android:id="@+id/tv_subtitle"
-        style="@style/MineFunctionTvRight"
-        android:layout_toLeftOf="@+id/iv_jd_arrow"
-        android:text="@string/JD_bonus"/>
+        <TextView
+            android:id="@+id/tv_title"
+            style="@style/MineFunctionTvLeft"
+            android:text="@string/JD"
+            android:textColor="@color/color_222222" />
 
-</RelativeLayout>
+        <ImageView
+            android:id="@+id/iv_jd_arrow"
+            style="@style/MineFunctionArrow"
+            android:src="@mipmap/setting_arrow" />
+
+        <TextView
+            android:id="@+id/tv_subtitle"
+            style="@style/MineFunctionTvRight"
+            android:layout_toLeftOf="@+id/iv_jd_arrow"
+            android:text="@string/JD_bonus" />
+
+    </RelativeLayout>
+    <include
+        layout="@layout/view_line_2"/>
+</LinearLayout>

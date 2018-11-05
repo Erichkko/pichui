@@ -1,20 +1,24 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--系统设置-->
-<RelativeLayout style="@style/MineFunctionRl"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?><!--系统设置-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <include
+        layout="@layout/view_line_1"/>
+    <RelativeLayout style="@style/MineFunctionRl"
+        >
 
-    >
+        <TextView
+            android:id="@+id/tv_title"
+            style="@style/MineFunctionTvLeft"
+            android:text="@string/settings"
+            android:textColor="@color/color_222222" />
 
-    <TextView
-        android:id="@+id/tv_title"
-        style="@style/MineFunctionTvLeft"
-        android:text="@string/settings"
-        android:textColor="@color/color_222222"
-        />
+        <ImageView
+            style="@style/MineFunctionArrow"
+            android:src="@mipmap/setting_arrow" />
 
-    <ImageView
-        style="@style/MineFunctionArrow"
-        android:background="@mipmap/setting_arrow"
-        />
-
-</RelativeLayout>
+    </RelativeLayout>
+    <include
+        layout="@layout/view_line_2"/>
+</LinearLayout>

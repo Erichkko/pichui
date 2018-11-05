@@ -10,16 +10,14 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
-public class MineSubTitleCellHolder extends RecyclerView.ViewHolder {
-    @BindView(R.id.tv_title)
-    public TextView tvTitle;
+public class MineSubTitleCellHolder extends MineBaseCellHolder {
 
     @BindView(R.id.tv_subtitle)
     public TextView tvSubtitle;
 
     public MineSubTitleCellHolder(View itemView) {
         super(itemView);
-        ButterKnife.bind(this,itemView);
+
     }
 
 }
