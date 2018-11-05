@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--京东特供-->
+<RelativeLayout style="@style/MineFunctionRl"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <TextView
+        android:id="@+id/tv_title"
+        style="@style/MineFunctionTvLeft"
+        android:text="@string/JD"
+        android:textColor="@color/color_222222"
+        />
+
+    <ImageView
+        android:id="@+id/iv_jd_arrow"
+        style="@style/MineFunctionArrow"
+        android:background="@mipmap/setting_arrow"
+        />
+
+    <TextView
+        android:id="@+id/tv_subtitle"
+        style="@style/MineFunctionTvRight"
+        android:layout_toLeftOf="@+id/iv_jd_arrow"
+        android:text="@string/JD_bonus"/>
+
+</RelativeLayout>

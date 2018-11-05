@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--系统设置-->
+<RelativeLayout style="@style/MineFunctionRl"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+
+    >
+
+    <TextView
+        android:id="@+id/tv_title"
+        style="@style/MineFunctionTvLeft"
+        android:text="@string/settings"
+        android:textColor="@color/color_222222"
+        />
+
+    <ImageView
+        style="@style/MineFunctionArrow"
+        android:background="@mipmap/setting_arrow"
+        />
+
+</RelativeLayout>
