@@ -1,11 +1,18 @@
 package com.pichui.news.ui.base;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.pi.core.uikit.slidingLayout.SlidingLayout;
+import com.pi.core.uikit.slidingLayout.SwipeLayout;
+import com.pichui.news.R;
 import com.pichui.news.ui.activity.MainActivity;
 
 import java.util.LinkedList;
@@ -18,6 +25,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     private static Activity mCurrentActivity;// 对所有activity进行管理
     public static final List<Activity> mActivities = new LinkedList<>();
     private static long mPreTime;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,10 +34,6 @@ public abstract class BaseActivity extends AppCompatActivity {
             mActivities.add(this);
         }
 
-        if (enableSlideClose()) {
-            SlidingLayout rootView = new SlidingLayout(this);
-            rootView.bindActivity(this);
-        }
         setContentView(provideContentViewId());
         ButterKnife.bind(this);
 
@@ -37,6 +41,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         initData();
         initListener();
     }
+
 
     @Override
     protected void onResume() {
@@ -85,9 +90,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     public void initListener() {
     }
-    public boolean enableSlideClose() {
-        return true;
-    }
+
     /**
      * 统一退出控制
      */
@@ -105,4 +108,22 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
     //得到当前界面的布局文件id(由子类实现)
     protected abstract int provideContentViewId();
+    @Override
+    public void startActivity(Intent intent, Bundle options) {
+        super.startActivity(intent, options);
+        overridePendingTransition(R.anim.in_from_right, R.anim.out_to_left);
+    }
+
+    @SuppressLint("RestrictedApi")
+    @Override
+    public void startActivityForResult(Intent intent, int requestCode, @Nullable Bundle options) {
+        super.startActivityForResult(intent, requestCode, options);
+        overridePendingTransition(R.anim.in_from_right, R.anim.out_to_left);
+    }
+    @Override
+    public void finish() {
+
+        super.finish();
+        overridePendingTransition(R.anim.in_from_left, R.anim.out_to_right);
+    }
 }
