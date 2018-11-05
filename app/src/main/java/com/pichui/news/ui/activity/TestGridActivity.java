@@ -13,6 +13,7 @@ import com.pi.core.uikit.recycleview.UniversalItemDecoration;
 import com.pichui.news.R;
 import com.pichui.news.ui.adapter.test.TestGridAdpter;
 import com.pichui.news.ui.adapter.test.TestGridModel;
+import com.pichui.news.ui.base.BaseActivity;
 import com.pichui.news.uitil.DebugLog;
 
 import java.util.ArrayList;
@@ -21,26 +22,21 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class TestGridActivity extends AppCompatActivity {
+public class TestGridActivity extends BaseActivity {
     @BindView(R.id.rv)
     public RecyclerView rv;
     List<TestGridModel> mData = new ArrayList<>();
     private TestGridAdpter mAdapter;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_test_grid);
-        ButterKnife.bind(this);
-        initView();
-        initData();
+    protected int provideContentViewId() {
+        return R.layout.activity_test_grid;
     }
 
-    private void initData() {
+    public void initData() {
 
     }
-
-    private void initView() {
+    public void initView() {
         rv.setLayoutManager(new GridLayoutManager(this,4));
         rv.addItemDecoration(new UniversalItemDecoration() {
             @Override

@@ -11,26 +11,22 @@ import com.pichui.news.R;
 import com.pichui.news.ui.adapter.base.SectionedSpanSizeLookup;
 import com.pichui.news.ui.adapter.test.Test1Adapter;
 import com.pichui.news.ui.adapter.test.TestEntity;
+import com.pichui.news.ui.base.BaseActivity;
 import com.pichui.news.uitil.JsonUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class Test1Activity extends AppCompatActivity {
+public class Test1Activity extends BaseActivity {
     @BindView(R.id.rv)
     public RecyclerView mRecyclerView;
     private Test1Adapter mAdapter;
 
-
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_test1);
-        ButterKnife.bind(this);
-        initView();
+    protected int provideContentViewId() {
+        return R.layout.activity_test1;
     }
-
-  private void initView() {
+  public void initView() {
         mAdapter = new Test1Adapter(this);
         GridLayoutManager manager = new GridLayoutManager(this,4);
         //设置header
@@ -40,8 +36,5 @@ public class Test1Activity extends AppCompatActivity {
          TestEntity entity = JsonUtils.analysisJsonFile(this,"json");
         mAdapter.setData(entity.allTagsList);
     }
-
-
-
 
 }

@@ -16,6 +16,7 @@ import com.pi.core.uikit.bottombarlayout.BottomBarItem;
 import com.pi.core.uikit.bottombarlayout.BottomBarLayout;
 import com.pi.core.uikit.statusbar.Eyes;
 import com.pichui.news.R;
+import com.pichui.news.ui.base.BaseActivity;
 import com.pichui.news.ui.fragment.MineFragment;
 import com.pichui.news.ui.fragment.TabFragment;
 import com.pichui.news.uitil.UIUtils;
@@ -23,11 +24,15 @@ import com.pichui.news.uitil.UIUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+import butterknife.BindView;
+
+public class MainActivity extends BaseActivity {
 
     private List<Fragment> mFragmentList = new ArrayList<>();
-    private FrameLayout mFlContent;
-    private BottomBarLayout mBottomBarLayout;
+    @BindView(R.id.fl_content)
+    public FrameLayout mFlContent;
+    @BindView(R.id.bbl)
+    public BottomBarLayout mBottomBarLayout;
     private RotateAnimation mRotateAnimation;
     private Handler mHandler = new Handler();
     private int[] mStatusColors = new int[]{
@@ -35,23 +40,15 @@ public class MainActivity extends AppCompatActivity {
             R.color.color_BDBDBD,
             R.color.color_BDBDBD,
     };
+
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        initView();
-        initData();
-        initListener();
+    protected int provideContentViewId() {
+        return R.layout.activity_main;
     }
 
-    private void initView() {
-        mFlContent = (FrameLayout) findViewById(R.id.fl_content);
-        mBottomBarLayout = (BottomBarLayout) findViewById(R.id.bbl);
-//        mBottomBarLayout.setVisibility(View.GONE);
-    }
 
-    private void initData() {
+    public void initData() {
 
         TabFragment homeFragment = new TabFragment();
         Bundle bundle1 = new Bundle();
@@ -78,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
         changeFragment(0); //默认显示第一页
     }
 
-    private void initListener() {
+    public void initListener() {
         mBottomBarLayout.setOnItemSelectedListener(new BottomBarLayout.OnItemSelectedListener() {
             @Override
             public void onItemSelected(final BottomBarItem bottomBarItem, int previousPosition, final int currentPosition) {
@@ -132,6 +129,8 @@ public class MainActivity extends AppCompatActivity {
         mBottomBarLayout.setMsg(3, "NEW");//设置第四个页签显示NEW提示文字
 
     }
+
+
 
     private void changeFragment(int currentPosition) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();

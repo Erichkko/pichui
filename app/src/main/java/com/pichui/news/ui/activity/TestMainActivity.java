@@ -16,6 +16,7 @@ import com.pichui.news.ui.adapter.test.TestGridAdpter;
 import com.pichui.news.ui.adapter.test.TestGridModel;
 import com.pichui.news.ui.adapter.test.TestMainAdpter;
 import com.pichui.news.ui.adapter.test.TestMainModel;
+import com.pichui.news.ui.base.BaseActivity;
 import com.pichui.news.uitil.DebugLog;
 import com.pichui.news.uitil.UIUtils;
 
@@ -25,26 +26,22 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class TestMainActivity extends AppCompatActivity {
+public class TestMainActivity extends BaseActivity {
     @BindView(R.id.rv)
     public RecyclerView rv;
     List<TestMainModel> mData = new ArrayList<>();
     private TestMainAdpter mAdapter;
 
+
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_test_grid);
-        ButterKnife.bind(this);
-        initView();
-        initData();
+    protected int provideContentViewId() {
+        return R.layout.activity_test_grid;
     }
-
-    private void initData() {
+    public void initData() {
 
     }
 
-    private void initView() {
+    public void initView() {
         rv.setLayoutManager(new GridLayoutManager(this,1));
         rv.addItemDecoration(new UniversalItemDecoration() {
             @Override
