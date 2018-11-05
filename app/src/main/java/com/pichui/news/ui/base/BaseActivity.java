@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
+import com.pi.core.uikit.slidingLayout.SlidingLayout;
 import com.pichui.news.ui.activity.MainActivity;
 
 import java.util.LinkedList;
@@ -23,6 +24,11 @@ public abstract class BaseActivity extends AppCompatActivity {
         //初始化的时候将其添加到集合中
         synchronized (mActivities) {
             mActivities.add(this);
+        }
+
+        if (enableSlideClose()) {
+            SlidingLayout rootView = new SlidingLayout(this);
+            rootView.bindActivity(this);
         }
         setContentView(provideContentViewId());
         ButterKnife.bind(this);
@@ -78,6 +84,9 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     public void initListener() {
+    }
+    public boolean enableSlideClose() {
+        return true;
     }
     /**
      * 统一退出控制
