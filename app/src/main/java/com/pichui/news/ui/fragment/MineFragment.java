@@ -57,7 +57,6 @@ public class MineFragment extends BaseFragment {
 
     @Override
     public void initView(View rootView) {
-//        tv_download.setText("哈哈哈");
         mAdapter = new MineAdapter(mActivity);
         GridLayoutManager manager = new GridLayoutManager(mActivity,1);
         //设置header
