@@ -8,16 +8,14 @@ import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
-import android.util.Log;
 import android.widget.RemoteViews;
 
 
+import com.pi.core.util.DebugLog;
 import com.pichui.news.R;
-import com.pichui.news.api.ApiRetrofit;
 import com.pichui.news.api.callback.DownloadCallBack;
 import com.pichui.news.api.uploadAndDown.FileManager;
 import com.pichui.news.app.Constant;
-import com.pichui.news.uitil.DebugLog;
 import com.pichui.news.uitil.PreUtils;
 
 import java.io.File;

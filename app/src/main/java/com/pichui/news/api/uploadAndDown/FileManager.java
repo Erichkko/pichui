@@ -1,11 +1,9 @@
 package com.pichui.news.api.uploadAndDown;
 
-import android.util.Log;
-
+import com.pi.core.util.DebugLog;
 import com.pichui.news.api.ApiRetrofit;
 import com.pichui.news.api.callback.DownloadCallBack;
 import com.pichui.news.app.Constant;
-import com.pichui.news.uitil.DebugLog;
 import com.pichui.news.uitil.PreUtils;
 
 import java.io.File;

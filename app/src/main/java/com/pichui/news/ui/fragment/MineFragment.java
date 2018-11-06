@@ -1,20 +1,12 @@
 package com.pichui.news.ui.fragment;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
 
-import com.pi.core.uikit.recycleview.RecyclerViewClickListener;
-import com.pi.core.uikit.recycleview.UniversalItemDecoration;
+import com.pi.core.util.DebugLog;
 import com.pichui.news.R;
-import com.pichui.news.ui.activity.MainActivity;
-import com.pichui.news.ui.activity.Test1Activity;
-import com.pichui.news.ui.activity.TestGridActivity;
 import com.pichui.news.ui.activity.TestMainActivity;
 import com.pichui.news.ui.adapter.base.SectionedSpanSizeLookup;
 import com.pichui.news.ui.adapter.mine.MineAdapter;
@@ -22,17 +14,12 @@ import com.pichui.news.ui.adapter.mine.MineModel;
 import com.pichui.news.ui.adapter.mine.MineMoelEntity;
 
 import com.pichui.news.ui.base.BaseFragment;
-import com.pichui.news.ui.service.DownloadIntentService;
-import com.pichui.news.uitil.DebugLog;
-import com.pichui.news.uitil.JsonUtils;
-import com.pichui.news.uitil.PublicFunction;
 import com.pichui.news.uitil.UIUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.OnClick;
 
 
 public class MineFragment extends BaseFragment {

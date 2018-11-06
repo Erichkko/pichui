@@ -2,9 +2,9 @@ package com.pichui.news.ui.fragment;
 
 import android.view.View;
 
+import com.pi.core.util.DebugLog;
 import com.pichui.news.R;
 import com.pichui.news.ui.base.BaseFragment;
-import com.pichui.news.uitil.DebugLog;
 
 public class MicroFragment extends BaseFragment {
     @Override

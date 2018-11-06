@@ -1,9 +1,8 @@
-package com.pichui.news.uitil;
+package com.pi.core.util;
 
 
 import android.text.TextUtils;
 import android.util.Log;
-
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

@@ -2,29 +2,23 @@ package com.pichui.news.ui.activity;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.pi.core.uikit.recycleview.RecyclerViewClickListener;
 import com.pi.core.uikit.recycleview.UniversalItemDecoration;
+import com.pi.core.util.DebugLog;
 import com.pichui.news.R;
-import com.pichui.news.ui.adapter.test.TestGridAdpter;
-import com.pichui.news.ui.adapter.test.TestGridModel;
 import com.pichui.news.ui.adapter.test.TestMainAdpter;
 import com.pichui.news.ui.adapter.test.TestMainModel;
 import com.pichui.news.ui.base.BaseActivity;
-import com.pichui.news.uitil.DebugLog;
 import com.pichui.news.uitil.UIUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class TestMainActivity extends BaseActivity {
     @BindView(R.id.rv)
