@@ -77,7 +77,7 @@ public class DownloadIntentService extends IntentService {
                 new NotificationCompat.Builder(this)
                         .setContent(remoteViews)
                         .setTicker("正在下载")
-                        .setSmallIcon(R.mipmap.ic_launcher);
+                        .setSmallIcon(R.mipmap.icon);
 
         mNotification = builder.build();
 

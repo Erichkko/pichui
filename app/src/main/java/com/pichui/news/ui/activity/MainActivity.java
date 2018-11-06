@@ -81,7 +81,7 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onItemSelected(final BottomBarItem bottomBarItem, int previousPosition, final int currentPosition) {
                 Log.i("MainActivity", "position: " + currentPosition);
-                setStatusBarColor(currentPosition);
+//                setStatusBarColor(currentPosition);
                 changeFragment(currentPosition);
 
                 if (currentPosition == 0) {
@@ -134,6 +134,7 @@ public class MainActivity extends BaseActivity {
 
 
     private void changeFragment(int currentPosition) {
+        setStatusBarColor(currentPosition);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.fl_content, mFragmentList.get(currentPosition));
         transaction.commit();

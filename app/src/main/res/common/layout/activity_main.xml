@@ -35,7 +35,7 @@
             app:textColorSelected="@color/tab_selected_color"
             app:itemTextSize="8sp"
             app:itemMarginTop="-5dp"
-            app:openTouchBg="true"
+            app:openTouchBg="false"
             app:touchDrawable="@drawable/selector_bg"
             />
 
@@ -50,7 +50,7 @@
             app:textColorSelected="@color/tab_selected_color"
             app:itemTextSize="8sp"
             app:itemMarginTop="-5dp"
-            app:openTouchBg="true"
+            app:openTouchBg="false"
             app:unreadThreshold="999"
             app:touchDrawable="@drawable/selector_bg"
             />
@@ -67,7 +67,7 @@
             app:textColorSelected="@color/tab_selected_color"
             app:itemTextSize="8sp"
             app:itemMarginTop="-5dp"
-            app:openTouchBg="true"
+            app:openTouchBg="false"
             app:touchDrawable="@drawable/selector_bg"
             />
 
@@ -82,7 +82,7 @@
             app:textColorSelected="@color/tab_selected_color"
             app:itemTextSize="8sp"
             app:itemMarginTop="-5dp"
-            app:openTouchBg="true"
+            app:openTouchBg="false"
             app:touchDrawable="@drawable/selector_bg"
             />
 
