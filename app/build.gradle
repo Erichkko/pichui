@@ -24,6 +24,23 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    sourceSets {
+        //目录结构设置
+        main {
+            manifest.srcFile 'src/main/AndroidManifest.xml'
+            java.srcDirs = ['src/main/java', '.apt_generated']
+            aidl.srcDirs = ['src/main/aidl', '.apt_generated']
+            assets.srcDirs = ['src/main/assets']
+            res.srcDirs =
+                    [
+                            'src/main/res/common',
+                            'src/main/res/home',
+                            'src/main/res/video',
+                            'src/main/res/micro',
+                            'src/main/res/mine'
+                    ]//res 目录的拆分
+        }
+    }
 }
 
 dependencies {

@@ -17,6 +17,7 @@ import com.pi.core.uikit.bottombarlayout.BottomBarLayout;
 import com.pi.core.uikit.statusbar.Eyes;
 import com.pichui.news.R;
 import com.pichui.news.ui.base.BaseActivity;
+import com.pichui.news.ui.fragment.MicroFragment;
 import com.pichui.news.ui.fragment.MineFragment;
 import com.pichui.news.ui.fragment.TabFragment;
 import com.pichui.news.uitil.UIUtils;
@@ -62,7 +63,7 @@ public class MainActivity extends BaseActivity {
         videoFragment.setArguments(bundle2);
         mFragmentList.add(videoFragment);
 
-        TabFragment microFragment = new TabFragment();
+        MicroFragment microFragment = new MicroFragment();
         Bundle bundle3 = new Bundle();
         bundle3.putString(TabFragment.CONTENT, "微头条");
         microFragment.setArguments(bundle3);
