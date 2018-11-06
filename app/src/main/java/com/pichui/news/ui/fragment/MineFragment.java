@@ -173,4 +173,9 @@ public class MineFragment extends BaseFragment {
 //        }
 //    }
 
+
+    @Override
+    protected void loadData() {
+        DebugLog.e("MineFragment...loadData");
+    }
 }

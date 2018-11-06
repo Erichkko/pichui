@@ -49,6 +49,12 @@ public abstract class BaseFragment extends LazyLoadFragment {
         mActivity = (Activity) context;
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        rootView = null;
+        unbinder.unbind();
+    }
     /**
      * 初始化一些view
      * @param rootView
@@ -71,13 +77,15 @@ public abstract class BaseFragment extends LazyLoadFragment {
     }
 
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        rootView = null;
-        unbinder.unbind();
-    }
 
+
+    //加载数据
+    protected abstract void loadData();
+    @Override
+    protected void onFragmentFirstVisible() {
+        //当第一次可见的时候，加载数据
+        loadData();
+    }
 
     //得到当前界面的布局文件id(由子类实现)
     protected abstract int provideContentViewId();

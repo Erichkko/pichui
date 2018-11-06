@@ -1,25 +1,21 @@
 package com.pichui.news.ui.fragment;
 
-import android.view.View;
-
 import com.pi.core.util.DebugLog;
 import com.pichui.news.R;
 import com.pichui.news.ui.base.BaseFragment;
 
-public class MicroFragment extends BaseFragment {
+public class VideoFragment extends BaseFragment {
     @Override
     protected int provideContentViewId() {
-        return R.layout.fragment_micro;
+        return R.layout.fragment_video;
     }
-
-
     @Override
     protected void loadData() {
-        DebugLog.e("MicroFragment...loadData");
+        DebugLog.e("VideoFragment...loadData");
     }
 
     @Override
     public void initData() {
-        DebugLog.e("MicroFragment...initData");
+        DebugLog.e("VideoFragment...initData");
     }
 }
