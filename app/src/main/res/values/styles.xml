@@ -9,7 +9,30 @@
         <item name="windowNoTitle">?android:windowNoTitle</item>
 
     </style>
+    <style name="AppTheme.Slide" parent="@style/AppTheme">
+        <!--Required-->
+        <!--<item name="android:windowBackground">@android:color/transparent</item>-->
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowAnimationStyle">@style/AppTheme.Slide.Animation1</item>
+    </style>
+    <style name="AppTheme.Slide.Animation" parent="@android:style/Animation.Activity">
+        <!--<item name="android:activityOpenEnterAnimation">@anim/out_from_right</item>-->
+        <!--<item name="android:activityOpenExitAnimation">@anim/in_from_left</item>-->
+        <!--<item name="android:activityCloseEnterAnimation">@anim/out_from_left</item>-->
+        <!--<item name="android:activityCloseExitAnimation">@anim/in_from_right</item>-->
 
+        <item name="android:activityOpenEnterAnimation">@anim/in_from_left</item>
+        <item name="android:activityOpenExitAnimation">@anim/out_from_right</item>
+        <item name="android:activityCloseEnterAnimation">@anim/in_from_right</item>
+        <item name="android:activityCloseExitAnimation">@anim/out_from_left</item>
+    </style>
+
+    <style name="AppTheme.Slide.Animation1" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/anim_slide_in</item>
+        <item name="android:activityOpenExitAnimation">@anim/anim_slide_out</item>
+        <item name="android:activityCloseEnterAnimation">@anim/anim_slide_in</item>
+        <item name="android:activityCloseExitAnimation">@anim/anim_slide_out</item>
+    </style>
 
     <style name="MineFunctionRl">
         <item name="android:layout_width">match_parent</item>

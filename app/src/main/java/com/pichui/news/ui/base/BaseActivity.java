@@ -108,22 +108,22 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
     //得到当前界面的布局文件id(由子类实现)
     protected abstract int provideContentViewId();
-    @Override
-    public void startActivity(Intent intent, Bundle options) {
-        super.startActivity(intent, options);
-        overridePendingTransition(R.anim.in_from_right, R.anim.out_to_left);
-    }
-
-    @SuppressLint("RestrictedApi")
-    @Override
-    public void startActivityForResult(Intent intent, int requestCode, @Nullable Bundle options) {
-        super.startActivityForResult(intent, requestCode, options);
-        overridePendingTransition(R.anim.in_from_right, R.anim.out_to_left);
-    }
-    @Override
-    public void finish() {
-
-        super.finish();
-        overridePendingTransition(R.anim.in_from_left, R.anim.out_to_right);
-    }
+//    @Override
+//    public void startActivity(Intent intent, Bundle options) {
+//        super.startActivity(intent, options);
+//        overridePendingTransition(R.anim.in_from_right, R.anim.out_to_left);
+//    }
+//
+//    @SuppressLint("RestrictedApi")
+//    @Override
+//    public void startActivityForResult(Intent intent, int requestCode, @Nullable Bundle options) {
+//        super.startActivityForResult(intent, requestCode, options);
+//        overridePendingTransition(R.anim.in_from_right, R.anim.out_to_left);
+//    }
+//    @Override
+//    public void finish() {
+//
+//        super.finish();
+//        overridePendingTransition(R.anim.in_from_left, R.anim.out_to_right);
+//    }
 }

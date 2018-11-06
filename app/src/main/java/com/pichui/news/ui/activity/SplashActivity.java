@@ -1,6 +1,9 @@
 package com.pichui.news.ui.activity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 
 
 import com.pi.core.uikit.statusbar.Eyes;
@@ -31,4 +34,5 @@ public class SplashActivity extends BaseActivity {
             }
         },2000);
     }
+
 }
