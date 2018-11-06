@@ -17,6 +17,7 @@ import com.pi.core.uikit.bottombarlayout.BottomBarLayout;
 import com.pi.core.uikit.statusbar.Eyes;
 import com.pichui.news.R;
 import com.pichui.news.ui.base.BaseActivity;
+import com.pichui.news.ui.fragment.HomeFragment;
 import com.pichui.news.ui.fragment.MicroFragment;
 import com.pichui.news.ui.fragment.MineFragment;
 import com.pichui.news.ui.fragment.TabFragment;
@@ -51,7 +52,7 @@ public class MainActivity extends BaseActivity {
 
     public void initData() {
 
-        TabFragment homeFragment = new TabFragment();
+        HomeFragment homeFragment = new HomeFragment();
         Bundle bundle1 = new Bundle();
         bundle1.putString(TabFragment.CONTENT, "首页");
         homeFragment.setArguments(bundle1);
