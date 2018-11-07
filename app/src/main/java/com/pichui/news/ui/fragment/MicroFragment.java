@@ -5,6 +5,7 @@ import android.view.View;
 import com.pi.core.util.DebugLog;
 import com.pichui.news.R;
 import com.pichui.news.ui.base.BaseFragment;
+import com.pichui.news.ui.base.BasePresenter;
 
 public class MicroFragment extends BaseFragment {
     @Override
@@ -21,5 +22,9 @@ public class MicroFragment extends BaseFragment {
     @Override
     public void initData() {
         DebugLog.e("MicroFragment...initData");
+    }
+    @Override
+    protected BasePresenter createPresenter() {
+        return null;
     }
 }

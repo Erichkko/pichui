@@ -11,18 +11,18 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 
-public abstract class BaseFragment extends LazyLoadFragment {
+public abstract class BaseFragment<T extends BasePresenter> extends LazyLoadFragment {
 
 
     private View rootView;
-
+    protected T mPresenter;
     protected Activity mActivity;
     private Unbinder unbinder;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        mPresenter = createPresenter();
     }
 
     @Override
@@ -52,8 +52,13 @@ public abstract class BaseFragment extends LazyLoadFragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        if (mPresenter != null) {
+            mPresenter.detachView();
+            mPresenter = null;
+        }
         rootView = null;
         unbinder.unbind();
+
     }
     /**
      * 初始化一些view
@@ -89,5 +94,8 @@ public abstract class BaseFragment extends LazyLoadFragment {
 
     //得到当前界面的布局文件id(由子类实现)
     protected abstract int provideContentViewId();
+
+    //用于创建Presenter和判断是否使用MVP模式(由子类实现)
+    protected abstract T createPresenter();
 
 }

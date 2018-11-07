@@ -121,7 +121,7 @@ public class ApiRetrofit {
                 .build();
 
         mRetrofit = new Retrofit.Builder()
-                .baseUrl(ApiConstant.BASE_URL)
+                .baseUrl(ApiConstant.BASE_SERVER_URL)
                 .addConverterFactory(GsonConverterFactory.create(new GsonBuilder().create()))//支持Gson转换
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())//支持RxJava
                 .client(mClient)

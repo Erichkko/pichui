@@ -14,6 +14,7 @@ import com.pichui.news.ui.adapter.mine.MineModel;
 import com.pichui.news.ui.adapter.mine.MineMoelEntity;
 
 import com.pichui.news.ui.base.BaseFragment;
+import com.pichui.news.ui.base.BasePresenter;
 import com.pichui.news.uitil.UIUtils;
 
 import java.util.ArrayList;
@@ -37,7 +38,10 @@ public class MineFragment extends BaseFragment {
         return  R.layout.fragment_mine;
     }
 
-
+    @Override
+    protected BasePresenter createPresenter() {
+        return null;
+    }
 
     @Override
     public void initData() {
