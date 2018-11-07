@@ -23,6 +23,7 @@ import com.pichui.news.ui.base.BaseFragment;
 import com.pichui.news.ui.fragment.HomeFragment;
 import com.pichui.news.ui.fragment.MicroFragment;
 import com.pichui.news.ui.fragment.MineFragment;
+import com.pichui.news.ui.fragment.NewsListFragment;
 import com.pichui.news.ui.fragment.TabFragment;
 import com.pichui.news.ui.fragment.VideoFragment;
 import com.pichui.news.uitil.UIUtils;
@@ -57,7 +58,7 @@ public class MainActivity extends BaseActivity {
 
     public void initData() {
 
-        HomeFragment homeFragment = new HomeFragment();
+        NewsListFragment homeFragment = new NewsListFragment();
         mFragmentList.add(homeFragment);
 
         VideoFragment videoFragment = new VideoFragment();
