@@ -1,6 +1,7 @@
 package com.pichui.news.ui.fragment;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
@@ -13,6 +14,7 @@ import com.google.gson.reflect.TypeToken;
 import com.pi.core.util.DebugLog;
 import com.pichui.news.R;
 import com.pichui.news.app.Constant;
+import com.pichui.news.listener.OnChannelListener;
 import com.pichui.news.model.entity.Channel;
 import com.pichui.news.ui.adapter.news.ChannelPagerAdapter;
 import com.pichui.news.ui.base.BaseFragment;
@@ -34,8 +36,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
-public class HomeFragment extends BaseFragment {
+public class HomeFragment extends BaseFragment implements OnChannelListener {
     @BindView(R.id.magic_indicator)
     MagicIndicator mMagicIndicator;
 
@@ -49,6 +52,7 @@ public class HomeFragment extends BaseFragment {
     private ChannelPagerAdapter mChannelPagerAdapter;
     private Gson mGson = new Gson();
     private String[] mChannelCodes;
+    private CommonNavigator commonNavigator;
 
     @Override
     protected void loadData() {
@@ -78,7 +82,7 @@ public class HomeFragment extends BaseFragment {
 
     private void initMagicIndicator(){
 
-        CommonNavigator commonNavigator = new CommonNavigator(mActivity);
+        commonNavigator = new CommonNavigator(mActivity);
         commonNavigator.setAdapter(new CommonNavigatorAdapter() {
 
             @Override
@@ -109,6 +113,7 @@ public class HomeFragment extends BaseFragment {
         });
         mMagicIndicator.setNavigator(commonNavigator);
         ViewPagerHelper.bind(mMagicIndicator, mViewPager);
+
     }
     private void initViewPager() {
         mChannelPagerAdapter = new ChannelPagerAdapter(mChannelFragments, mSelectedChannels,getChildFragmentManager());
@@ -162,5 +167,65 @@ public class HomeFragment extends BaseFragment {
             mChannelFragments.add(newsFragment);//添加到集合中
         }
     }
+    @OnClick({R.id.tv_search, R.id.iv_operation})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.tv_search:
+                DebugLog.e("tv_search");
+                break;
+            case R.id.iv_operation:
+                DebugLog.e("iv_operation");
+                ChannelDialogFragment dialogFragment = ChannelDialogFragment.newInstance(mSelectedChannels, mUnSelectedChannels);
+                dialogFragment.setOnChannelListener(HomeFragment.this);
+                dialogFragment.show(getChildFragmentManager(), "CHANNEL");
+                dialogFragment.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialog) {
+                        commonNavigator.notifyDataSetChanged();    // must call firstly
+                        mChannelPagerAdapter.notifyDataSetChanged();
 
+
+                        //保存选中和未选中的channel
+                        PreUtils.putString(Constant.SELECTED_CHANNEL_JSON, mGson.toJson(mSelectedChannels));
+                        PreUtils.putString(Constant.UNSELECTED_CHANNEL_JSON, mGson.toJson(mUnSelectedChannels));
+                    }
+                });
+                break;
+        }
+    }
+    @Override
+    public void onItemMove(int starPos, int endPos) {
+        listMove(mSelectedChannels, starPos, endPos);
+        listMove(mChannelFragments, starPos, endPos);
+    }
+
+
+    @Override
+    public void onMoveToMyChannel(int starPos, int endPos) {
+        //移动到我的频道
+        Channel channel = mUnSelectedChannels.remove(starPos);
+        mSelectedChannels.add(endPos, channel);
+
+        NewsListFragment newsFragment = new NewsListFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString(Constant.CHANNEL_CODE, channel.channelCode);
+        bundle.putBoolean(Constant.IS_VIDEO_LIST, channel.channelCode.equals(mChannelCodes[1]));
+        newsFragment.setArguments(bundle);
+        mChannelFragments.add(newsFragment);
+    }
+
+    @Override
+    public void onMoveToOtherChannel(int starPos, int endPos) {
+        //移动到推荐频道
+        mUnSelectedChannels.add(endPos, mSelectedChannels.remove(starPos));
+        mChannelFragments.remove(starPos);
+    }
+
+    private void listMove(List datas, int starPos, int endPos) {
+        Object o = datas.get(starPos);
+        //先删除之前的位置
+        datas.remove(starPos);
+        //添加到现在的位置
+        datas.add(endPos, o);
+    }
 }
