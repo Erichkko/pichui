@@ -58,7 +58,7 @@ public class MainActivity extends BaseActivity {
 
     public void initData() {
 
-        NewsListFragment homeFragment = new NewsListFragment();
+        HomeFragment homeFragment = new HomeFragment();
         mFragmentList.add(homeFragment);
 
         VideoFragment videoFragment = new VideoFragment();
