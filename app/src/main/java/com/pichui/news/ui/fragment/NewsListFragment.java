@@ -1,18 +1,22 @@
 package com.pichui.news.ui.fragment;
 
 
+import android.graphics.Color;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.pi.core.uikit.recycleview.UniversalItemDecoration;
 import com.pi.core.uikit.view.TipView;
 import com.pi.core.util.DebugLog;
 import com.pichui.news.R;
 import com.pichui.news.app.Constant;
 import com.pichui.news.model.entity.News;
+import com.pichui.news.ui.activity.MainActivity;
 import com.pichui.news.ui.adapter.news.MultipleItem;
 import com.pichui.news.ui.adapter.news.NewsListAdapter;
 import com.pichui.news.ui.adapter.news.VideoListAdapter;
@@ -54,6 +58,20 @@ public class NewsListFragment extends BaseFragment <NewsListPresenter>implements
 
         final LinearLayoutManager manager = new LinearLayoutManager(mActivity);
         rv.setLayoutManager(manager);
+        rv.addItemDecoration(new UniversalItemDecoration() {
+            @Override
+            public Decoration getItemOffsets(int position) {
+                ColorDecoration decoration = new ColorDecoration();
+                //你的逻辑设置分割线
+                decoration.bottom   = 2;//下分割
+//                decoration.right  = 2;// 右分割
+//                decoration.left   = 2; //左分割
+//                decoration.top     = 2;//上分割线
+                decoration.decorationColor =  Color.parseColor("#F8F8F8");
+//                分割线颜色
+                return decoration;
+            }
+        });
         rfLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(RefreshLayout refreshlayout) {
@@ -98,6 +116,7 @@ public class NewsListFragment extends BaseFragment <NewsListPresenter>implements
         }else {
             mNewsAdapter = new NewsListAdapter(data,mChannelCode);
         }
+        mNewsAdapter.openLoadAnimation();
       rv.setAdapter(mNewsAdapter);
 
     }
@@ -106,14 +125,17 @@ public class NewsListFragment extends BaseFragment <NewsListPresenter>implements
     protected void loadData() {
         DebugLog.e("NewsListFragment loadData....");
         rfLayout.autoRefresh();
-//        MultipleItem item1 = new MultipleItem(MultipleItem.IMG_TEXT,"1");
-//        MultipleItem item2 = new MultipleItem(MultipleItem.IMG,"2");
-//        MultipleItem item3 = new MultipleItem(MultipleItem.TEXT,"3");
-//        MultipleItem item4 = new MultipleItem(MultipleItem.IMG_TEXT,"4");
-//        data.add(item1);
-//        data.add(item2);
-//        data.add(item3);
-//        data.add(item4);
+    }
+
+    @Override
+    public void initListener() {
+        //条目点击事件
+        mNewsAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                UIUtils.showToast("点击了第" + (position + 1) + "条条目");
+            }
+        });
 
     }
 
