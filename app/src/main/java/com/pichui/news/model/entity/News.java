@@ -12,7 +12,7 @@ import java.util.List;
  * @date 2017/7/6  15:11
  */
 
-public class News implements MultiItemEntity {
+public class News  {
 
 
     /**
@@ -100,21 +100,10 @@ public class News implements MultiItemEntity {
     public String group_id;
     public ImageEntity middle_image;
     public List<ImageEntity> image_list;
-    private int itemType = 0;
-
-
-    public News(int itemType) {
-        this.itemType = itemType;
-    }
-
 
     @Override
     public String toString() {
         return new Gson().toJson(this);
     }
 
-    @Override
-    public int getItemType() {
-        return itemType;
-    }
 }

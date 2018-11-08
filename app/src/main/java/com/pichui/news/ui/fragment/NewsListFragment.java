@@ -96,7 +96,7 @@ public class NewsListFragment extends BaseFragment <NewsListPresenter>implements
         if (isVideoList){
             mNewsAdapter = new VideoListAdapter(data);
         }else {
-            mNewsAdapter = new NewsListAdapter(data);
+            mNewsAdapter = new NewsListAdapter(data,mChannelCode);
         }
       rv.setAdapter(mNewsAdapter);
 
