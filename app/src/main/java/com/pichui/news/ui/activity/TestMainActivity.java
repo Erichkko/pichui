@@ -13,6 +13,7 @@ import com.pichui.news.R;
 import com.pichui.news.ui.adapter.test.TestMainAdpter;
 import com.pichui.news.ui.adapter.test.TestMainModel;
 import com.pichui.news.ui.base.BaseActivity;
+import com.pichui.news.ui.base.BasePresenter;
 import com.pichui.news.uitil.UIUtils;
 
 import java.util.ArrayList;
@@ -31,6 +32,12 @@ public class TestMainActivity extends BaseActivity {
     protected int provideContentViewId() {
         return R.layout.activity_test_grid;
     }
+
+    @Override
+    protected BasePresenter createPresenter() {
+        return null;
+    }
+
     public void initData() {
 
     }

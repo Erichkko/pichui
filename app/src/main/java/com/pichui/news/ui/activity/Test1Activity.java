@@ -12,6 +12,7 @@ import com.pichui.news.ui.adapter.base.SectionedSpanSizeLookup;
 import com.pichui.news.ui.adapter.test.Test1Adapter;
 import com.pichui.news.ui.adapter.test.TestEntity;
 import com.pichui.news.ui.base.BaseActivity;
+import com.pichui.news.ui.base.BasePresenter;
 import com.pichui.news.uitil.JsonUtils;
 
 import butterknife.BindView;
@@ -26,7 +27,13 @@ public class Test1Activity extends BaseActivity {
     protected int provideContentViewId() {
         return R.layout.activity_test1;
     }
-  public void initView() {
+
+    @Override
+    protected BasePresenter createPresenter() {
+        return null;
+    }
+
+    public void initView() {
         mAdapter = new Test1Adapter(this);
         GridLayoutManager manager = new GridLayoutManager(this,4);
         //设置header

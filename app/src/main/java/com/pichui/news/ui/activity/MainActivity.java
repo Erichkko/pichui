@@ -20,6 +20,7 @@ import com.pichui.news.R;
 import com.pichui.news.ui.adapter.base.MainTabAdapter;
 import com.pichui.news.ui.base.BaseActivity;
 import com.pichui.news.ui.base.BaseFragment;
+import com.pichui.news.ui.base.BasePresenter;
 import com.pichui.news.ui.fragment.HomeFragment;
 import com.pichui.news.ui.fragment.MicroFragment;
 import com.pichui.news.ui.fragment.MineFragment;
@@ -53,6 +54,11 @@ public class MainActivity extends BaseActivity {
     @Override
     protected int provideContentViewId() {
         return R.layout.activity_main;
+    }
+
+    @Override
+    protected BasePresenter createPresenter() {
+        return null;
     }
 
 

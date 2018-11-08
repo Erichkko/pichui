@@ -21,11 +21,11 @@ import java.util.ListIterator;
 
 import butterknife.ButterKnife;
 
-public abstract class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity<T extends BasePresenter> extends AppCompatActivity {
     private static Activity mCurrentActivity;// 对所有activity进行管理
     public static final List<Activity> mActivities = new LinkedList<>();
     private static long mPreTime;
-
+    protected T mPresenter;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +36,8 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         setContentView(provideContentViewId());
         ButterKnife.bind(this);
+
+        mPresenter = createPresenter();
 
         initView();
         initData();
@@ -64,6 +66,9 @@ public abstract class BaseActivity extends AppCompatActivity {
             mActivities.remove(this);
         }
 
+        if (mPresenter != null) {
+            mPresenter.detachView();
+        }
     }
 
     /**
@@ -108,6 +113,9 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
     //得到当前界面的布局文件id(由子类实现)
     protected abstract int provideContentViewId();
+
+    //用于创建Presenter和判断是否使用MVP模式(由子类实现)
+    protected abstract T createPresenter();
 //    @Override
 //    public void startActivity(Intent intent, Bundle options) {
 //        super.startActivity(intent, options);

@@ -1,6 +1,7 @@
 package com.pichui.news.ui.fragment;
 
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -17,6 +18,7 @@ import com.pichui.news.R;
 import com.pichui.news.app.Constant;
 import com.pichui.news.model.entity.News;
 import com.pichui.news.ui.activity.MainActivity;
+import com.pichui.news.ui.activity.WebViewActivity;
 import com.pichui.news.ui.adapter.news.MultipleItem;
 import com.pichui.news.ui.adapter.news.NewsListAdapter;
 import com.pichui.news.ui.adapter.news.VideoListAdapter;
@@ -133,7 +135,12 @@ public class NewsListFragment extends BaseFragment <NewsListPresenter>implements
         mNewsAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                News news = data.get(position);
                 UIUtils.showToast("点击了第" + (position + 1) + "条条目");
+                Intent intent = new Intent();
+                intent.setClass(mActivity, WebViewActivity.class);
+                intent.putExtra(WebViewActivity.URL, news.article_url);
+                startActivity(intent);
             }
         });
 

@@ -65,8 +65,6 @@ public class NewsListPresenter extends BasePresenter<lNewsListView> {
                                 newsList.add(news);
                             }
                         }
-                        DebugLog.e(newsList.toString());
-                        DebugLog.e(response.tips.display_info);
                         if (TextUtils.isEmpty(response.tips.display_info)){
                             response.tips.display_info = UIUtils.getString(R.string.tip_no_data);
                         }

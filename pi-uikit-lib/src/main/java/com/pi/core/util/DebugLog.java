@@ -10,6 +10,9 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.pi.uikit.BuildConfig;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.util.Locale;
@@ -103,6 +106,8 @@ public class DebugLog {
                         Log.d(tag, "Empty or Null json content");
                         return;
                     }
+
+
                     String message;
                     try {
                         Gson gson = new GsonBuilder().setPrettyPrinting().create();
