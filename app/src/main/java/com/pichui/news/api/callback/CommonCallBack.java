@@ -24,7 +24,7 @@ public abstract class CommonCallBack<T> extends BaseObserverCallBack<T> {
 
     @Override
     public void onComplete() {
-
+         onCompleted();
     }
     @Override
     public void onError(Throwable e) {
@@ -34,6 +34,8 @@ public abstract class CommonCallBack<T> extends BaseObserverCallBack<T> {
 
     protected abstract void onSuccess(T response);
     protected abstract void onError();
+    protected abstract void onCompleted();
+
 
 
 }

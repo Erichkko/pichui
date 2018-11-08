@@ -56,13 +56,11 @@ public class HomeFragment extends BaseFragment implements OnChannelListener {
 
     @Override
     protected void loadData() {
-        DebugLog.e("HomeFragment...loadData"
-        );
+
     }
 
     @Override
     public void initData() {
-        DebugLog.e("HomeFragment...initData");
         initChannelData();
         initChannelFragments();
         initMagicIndicator();

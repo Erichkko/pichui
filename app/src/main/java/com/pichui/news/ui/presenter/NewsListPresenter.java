@@ -52,7 +52,7 @@ public class NewsListPresenter extends BasePresenter<lNewsListView> {
                     protected void onSuccess(NewsResponse response) {
                         Gson gson = new Gson();
                         String jsonData = gson.toJson(response);
-                        DebugLog.e("jsonData == "+jsonData);
+                        DebugLog.json(jsonData);
                     }
 
                     @Override
@@ -61,10 +61,11 @@ public class NewsListPresenter extends BasePresenter<lNewsListView> {
                     }
 
                     @Override
-                    public void onComplete() {
-                        super.onComplete();
+                    protected void onCompleted() {
+                        mView.onComplete();
                         DebugLog.e("onComplete == ");
                     }
+
                 }
         );
     }

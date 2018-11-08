@@ -17,4 +17,6 @@ public interface lNewsListView {
     void onGetNewsListSuccess(List<News> newList, String tipInfo);
 
     void  onError();
+
+    void onComplete();
 }

@@ -70,4 +70,7 @@ dependencies {
     compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
     //指示器
     compile 'com.github.hackware1993:MagicIndicator:1.5.0'
+    //刷新
+    compile 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.4-5'
+    compile 'com.scwang.smartrefresh:SmartRefreshHeader:1.0.4-5'
 }

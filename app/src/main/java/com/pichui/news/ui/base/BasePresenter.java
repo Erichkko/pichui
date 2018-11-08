@@ -49,7 +49,7 @@ public abstract class BasePresenter<V> {
     }
 
     //RXjava取消注册，以避免内存泄露
-    public void onUnsubscribe() {
+    private void onUnsubscribe() {
         if (composite != null && composite.isDisposed()) {
             composite.dispose();
         }

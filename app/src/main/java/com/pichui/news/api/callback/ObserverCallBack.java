@@ -31,7 +31,7 @@ public abstract class  ObserverCallBack<T> extends BaseObserverCallBack<ResultRe
 
     @Override
     public void onComplete() {
-
+        onCompleted();
     }
     @Override
     public void onError(Throwable e) {
@@ -41,6 +41,7 @@ public abstract class  ObserverCallBack<T> extends BaseObserverCallBack<ResultRe
 
     protected abstract void onSuccess(T response);
     protected abstract void onError();
+    protected abstract void onCompleted();
     protected void onFailure(ResultResponse response) {
     }
 
