@@ -3,8 +3,11 @@ package com.pichui.news.ui.fragment;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
+import android.widget.TextView;
 
+import com.pi.core.uikit.view.TipView;
 import com.pi.core.util.DebugLog;
 import com.pichui.news.R;
 import com.pichui.news.app.Constant;
@@ -15,6 +18,7 @@ import com.pichui.news.ui.base.BaseFragment;
 
 import com.pichui.news.ui.iview.lNewsListView;
 import com.pichui.news.ui.presenter.NewsListPresenter;
+import com.pichui.news.uitil.NetWorkUtils;
 import com.pichui.news.uitil.UIUtils;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -33,6 +37,9 @@ public class NewsListFragment extends BaseFragment <NewsListPresenter>implements
     @BindView(R.id.refresh_Layout)
     public SmartRefreshLayout rfLayout;
 
+    @BindView(R.id.tip_view)
+    public TipView mTipView;
+
     List<MultipleItem> data = new ArrayList<>();
     private NewsListAdapter multipleItemAdapter;
     private String mChannelCode;
@@ -50,6 +57,12 @@ public class NewsListFragment extends BaseFragment <NewsListPresenter>implements
         rfLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(RefreshLayout refreshlayout) {
+                if (!NetWorkUtils.isNetworkAvailable(mActivity)) {
+                    //网络不可用弹出提示
+                    mTipView.show();
+                    refreshlayout.finishRefresh();
+                    return;
+                }
                 refreshData();
             }
         });
@@ -68,6 +81,7 @@ public class NewsListFragment extends BaseFragment <NewsListPresenter>implements
         mPresenter.getNewsList(mChannelCode);
     }
     private void loadMore() {
+        rfLayout.finishLoadmore();
     }
 
     @Override
@@ -84,7 +98,7 @@ public class NewsListFragment extends BaseFragment <NewsListPresenter>implements
     @Override
     protected void loadData() {
         DebugLog.e("NewsListFragment loadData....");
-        refreshData();
+        rfLayout.autoRefresh();
 //        MultipleItem item1 = new MultipleItem(MultipleItem.IMG_TEXT,"1");
 //        MultipleItem item2 = new MultipleItem(MultipleItem.IMG,"2");
 //        MultipleItem item3 = new MultipleItem(MultipleItem.TEXT,"3");
@@ -108,12 +122,18 @@ public class NewsListFragment extends BaseFragment <NewsListPresenter>implements
 
     @Override
     public void onGetNewsListSuccess(List<News> newList, String tipInfo) {
+        if (TextUtils.isEmpty(tipInfo)){
+
+        }else {
+            mTipView.show(tipInfo);
+        }
+
         multipleItemAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void onError() {
-
+        mTipView.show();
     }
 
     @Override

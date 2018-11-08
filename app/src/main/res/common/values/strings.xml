@@ -28,5 +28,5 @@
     <string name="feed_back">用户反馈</string>
     <string name="settings">系统设置</string>
 
-
+    <string name="tip_no_data">暂无相关频道数据</string>
 </resources>

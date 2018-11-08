@@ -1,8 +1,11 @@
 package com.pichui.news.ui.presenter;
 
 
+import android.text.TextUtils;
+
 import com.google.gson.Gson;
 import com.pi.core.util.DebugLog;
+import com.pichui.news.R;
 import com.pichui.news.api.callback.CommonCallBack;
 import com.pichui.news.api.callback.ObserverCallBack;
 import com.pichui.news.model.entity.News;
@@ -12,6 +15,7 @@ import com.pichui.news.ui.base.BasePresenter;
 import com.pichui.news.ui.iview.lNewsListView;
 import com.pichui.news.uitil.ListUtils;
 import com.pichui.news.uitil.PreUtils;
+import com.pichui.news.uitil.UIUtils;
 
 import org.reactivestreams.Subscriber;
 import org.reactivestreams.Subscription;
@@ -39,7 +43,7 @@ public class NewsListPresenter extends BasePresenter<lNewsListView> {
     }
 
 
-    public void getNewsList(String channelCode){
+    public void getNewsList(final String channelCode){
         lastTime = PreUtils.getLong(channelCode,0);//读取对应频道下最后一次刷新的时间戳
         if (lastTime == 0){
             //如果为空，则是从来没有刷新过，使用当前时间戳
@@ -50,20 +54,34 @@ public class NewsListPresenter extends BasePresenter<lNewsListView> {
                 new CommonCallBack<NewsResponse>() {
                     @Override
                     protected void onSuccess(NewsResponse response) {
-                        Gson gson = new Gson();
-                        String jsonData = gson.toJson(response);
-                        DebugLog.json(jsonData);
+                        lastTime = System.currentTimeMillis() / 1000;
+                        PreUtils.putLong(channelCode,lastTime);//保存刷新的时间戳
+
+                        List<NewsData> data = response.data;
+                        List<News> newsList = new ArrayList<>();
+                        if (!ListUtils.isEmpty(data)){
+                            for (NewsData newsData : data) {
+                                News news = new Gson().fromJson(newsData.content, News.class);
+                                newsList.add(news);
+                            }
+                        }
+                        DebugLog.e(newsList.toString());
+                        DebugLog.e(response.tips.display_info);
+                        if (TextUtils.isEmpty(response.tips.display_info)){
+                            response.tips.display_info = UIUtils.getString(R.string.tip_no_data);
+                        }
+                        mView.onGetNewsListSuccess(newsList,response.tips.display_info);
                     }
 
                     @Override
                     protected void onError() {
                         DebugLog.e("onError == ");
+                        mView.onError();
                     }
 
                     @Override
                     protected void onCompleted() {
                         mView.onComplete();
-                        DebugLog.e("onComplete == ");
                     }
 
                 }
