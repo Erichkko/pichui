@@ -2,11 +2,13 @@ package com.pichui.news.api;
 
 
 import com.pichui.news.model.response.NewsResponse;
+import com.pichui.news.model.response.VideoPathResponse;
 
 import io.reactivex.Observable;
 import okhttp3.ResponseBody;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.POST;
 import retrofit2.http.Query;
 import retrofit2.http.Streaming;
 import retrofit2.http.Url;
@@ -63,8 +65,8 @@ public interface ApiService {
 //            "Origin:http://toutiao.iiilab.com"
 //
 //    })
-//    @POST("http://service.iiilab.com/video/toutiao")
-//    Observable<VideoPathResponse> getVideoPath(@Query("link") String link, @Query("r") String r, @Query("s") String s);
+    @POST("http://service.iiilab.com/video/toutiao")
+    Observable<VideoPathResponse> getVideoPath(@Query("link") String link, @Query("r") String r, @Query("s") String s);
 
 
     @Streaming

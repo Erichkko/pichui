@@ -1,1 +1,1 @@
-include ':app', ':pi-uikit-lib'
+include ':app', ':pi-uikit-lib', ':jcvideoplayer-lib'

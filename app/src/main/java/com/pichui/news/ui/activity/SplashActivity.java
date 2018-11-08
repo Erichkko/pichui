@@ -1,9 +1,7 @@
 package com.pichui.news.ui.activity;
 
-import android.annotation.SuppressLint;
+
 import android.content.Intent;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
 
 
 import com.pi.core.uikit.statusbar.Eyes;
@@ -25,7 +23,7 @@ public class SplashActivity extends BaseActivity {
 
     @Override
     public void initView() {
-        Eyes.translucentStatusBar(this,false);//
+        Eyes.translucentStatusBar(this,true);//
         UIUtils.postTaskDelay(new Runnable() {
             @Override
             public void run() {

@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.pi.core.uikit.view.TipView;
 import com.pi.core.util.DebugLog;
 import com.pichui.news.R;
@@ -14,6 +15,7 @@ import com.pichui.news.app.Constant;
 import com.pichui.news.model.entity.News;
 import com.pichui.news.ui.adapter.news.MultipleItem;
 import com.pichui.news.ui.adapter.news.NewsListAdapter;
+import com.pichui.news.ui.adapter.news.VideoListAdapter;
 import com.pichui.news.ui.base.BaseFragment;
 
 import com.pichui.news.ui.iview.lNewsListView;
@@ -40,8 +42,8 @@ public class NewsListFragment extends BaseFragment <NewsListPresenter>implements
     @BindView(R.id.tip_view)
     public TipView mTipView;
 
-    List<MultipleItem> data = new ArrayList<>();
-    private NewsListAdapter multipleItemAdapter;
+    List<News> data = new ArrayList<>();
+    private BaseQuickAdapter mNewsAdapter;
     private String mChannelCode;
     private boolean isVideoList;
     private boolean isRecommendChannel;
@@ -49,11 +51,9 @@ public class NewsListFragment extends BaseFragment <NewsListPresenter>implements
     @Override
     public void initView(View rootView) {
         DebugLog.e("NewsListFragment  initView....");
-         multipleItemAdapter = new NewsListAdapter(mActivity, data);
+
         final LinearLayoutManager manager = new LinearLayoutManager(mActivity);
         rv.setLayoutManager(manager);
-        rv.setAdapter(multipleItemAdapter);
-
         rfLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(RefreshLayout refreshlayout) {
@@ -93,6 +93,13 @@ public class NewsListFragment extends BaseFragment <NewsListPresenter>implements
 
         String[] channelCodes = UIUtils.getStringArr(R.array.channel_code);
         isRecommendChannel = mChannelCode.equals(channelCodes[0]);//是否是推荐频道
+        if (isVideoList){
+            mNewsAdapter = new VideoListAdapter(data);
+        }else {
+            mNewsAdapter = new NewsListAdapter(data);
+        }
+      rv.setAdapter(mNewsAdapter);
+
     }
 
     @Override
@@ -122,13 +129,9 @@ public class NewsListFragment extends BaseFragment <NewsListPresenter>implements
 
     @Override
     public void onGetNewsListSuccess(List<News> newList, String tipInfo) {
-        if (TextUtils.isEmpty(tipInfo)){
-
-        }else {
-            mTipView.show(tipInfo);
-        }
-
-        multipleItemAdapter.notifyDataSetChanged();
+        mTipView.show(tipInfo);
+        data.addAll(0, newList);
+        mNewsAdapter.notifyDataSetChanged();
     }
 
     @Override

@@ -114,7 +114,7 @@ public class ApiRetrofit {
 
         mClient = new OkHttpClient.Builder()
                 .addInterceptor(mHeaderInterceptor)//添加头部信息拦截器
-//                .addInterceptor(mLogInterceptor)//添加log拦截器
+                .addInterceptor(mLogInterceptor)//添加log拦截器
                 .cache(cache)
                 .connectTimeout(20, TimeUnit.SECONDS)
                 .readTimeout(20, TimeUnit.SECONDS)

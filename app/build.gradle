@@ -51,7 +51,6 @@ dependencies {
     implementation "com.android.support:design:${rootProject.ext.supportVersion}"
     implementation 'com.android.support:multidex:1.0.1'
     implementation project(':pi-uikit-lib')
-
     // rxjava
     implementation 'io.reactivex.rxjava2:rxjava:2.1.9'
     implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
@@ -59,13 +58,9 @@ dependencies {
     implementation 'com.squareup.retrofit2:retrofit:2.3.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
-
-
-
     compile 'com.google.code.gson:gson:2.2.4'
     compile 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
-
     //和原始的adapter相对，减少70%的代码量。
     compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
     //指示器
@@ -73,4 +68,8 @@ dependencies {
     //刷新
     compile 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.4-5'
     compile 'com.scwang.smartrefresh:SmartRefreshHeader:1.0.4-5'
+    implementation project(':jcvideoplayer-lib')
+
+    compile 'com.github.bumptech.glide:glide:4.3.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.3.0'
 }
