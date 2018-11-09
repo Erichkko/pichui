@@ -3,6 +3,7 @@ package com.pichui.news.ui.activity;
 import android.graphics.Bitmap;
 import android.view.KeyEvent;
 import android.view.View;
+import android.webkit.JsResult;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -73,6 +74,16 @@ public class WebViewActivity extends BaseActivity {
             @Override
             public void onProgressChanged(WebView view, int newProgress) {
                 mPbLoading.setProgress(newProgress);
+            }
+            @Override
+            public void onReceivedTitle(WebView view, String title) {
+                super.onReceivedTitle(view, title);
+                mTvTitle.setText(title);
+            }
+
+            @Override
+            public boolean onJsAlert(WebView view, String url, String message, JsResult result) {
+                return super.onJsAlert(view, url, message, result);
             }
         });
 
