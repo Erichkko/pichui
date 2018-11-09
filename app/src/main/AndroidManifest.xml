@@ -27,6 +27,8 @@
         <activity android:name=".ui.activity.MainActivity"
             android:theme="@style/AppTheme"/>
         <activity android:name=".ui.activity.WebViewActivity" />
+        <activity android:name=".ui.base.NewsDetailBaseActivity" />
+        <activity android:name=".ui.activity.NewsDetailActivity" />
 
         <service android:name=".ui.service.DownloadIntentService" />
     </application>

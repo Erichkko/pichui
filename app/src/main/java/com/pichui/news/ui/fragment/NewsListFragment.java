@@ -18,12 +18,14 @@ import com.pichui.news.R;
 import com.pichui.news.app.Constant;
 import com.pichui.news.model.entity.News;
 import com.pichui.news.ui.activity.MainActivity;
+import com.pichui.news.ui.activity.NewsDetailActivity;
 import com.pichui.news.ui.activity.WebViewActivity;
 import com.pichui.news.ui.adapter.news.MultipleItem;
 import com.pichui.news.ui.adapter.news.NewsListAdapter;
 import com.pichui.news.ui.adapter.news.VideoListAdapter;
 import com.pichui.news.ui.base.BaseFragment;
 
+import com.pichui.news.ui.base.NewsDetailBaseActivity;
 import com.pichui.news.ui.iview.lNewsListView;
 import com.pichui.news.ui.presenter.NewsListPresenter;
 import com.pichui.news.uitil.NetWorkUtils;
@@ -37,6 +39,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import fm.jiecao.jcvideoplayer_lib.JCMediaManager;
+import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerManager;
+import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard;
 
 public class NewsListFragment extends BaseFragment <NewsListPresenter>implements lNewsListView {
     @BindView(R.id.rv)
@@ -74,27 +79,7 @@ public class NewsListFragment extends BaseFragment <NewsListPresenter>implements
                 return decoration;
             }
         });
-        rfLayout.setOnRefreshListener(new OnRefreshListener() {
-            @Override
-            public void onRefresh(RefreshLayout refreshlayout) {
-                if (!NetWorkUtils.isNetworkAvailable(mActivity)) {
-                    //网络不可用弹出提示
-                    mTipView.show();
-                    refreshlayout.finishRefresh();
-                    return;
-                }
-                refreshData();
-            }
-        });
-        rfLayout.setOnLoadmoreListener(new OnLoadmoreListener() {
-            @Override
-            public void onLoadmore(final RefreshLayout refreshlayout) {
-                loadMore();
 
-            }
-
-
-        });
     }
 
     private void refreshData() {
@@ -131,15 +116,70 @@ public class NewsListFragment extends BaseFragment <NewsListPresenter>implements
 
     @Override
     public void initListener() {
+        rfLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(RefreshLayout refreshlayout) {
+                if (!NetWorkUtils.isNetworkAvailable(mActivity)) {
+                    //网络不可用弹出提示
+                    mTipView.show();
+                    refreshlayout.finishRefresh();
+                    return;
+                }
+                refreshData();
+            }
+        });
+        rfLayout.setOnLoadmoreListener(new OnLoadmoreListener() {
+            @Override
+            public void onLoadmore(final RefreshLayout refreshlayout) {
+                loadMore();
+
+            }
+
+
+        });
         //条目点击事件
         mNewsAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 News news = data.get(position);
-                UIUtils.showToast("点击了第" + (position + 1) + "条条目");
-                Intent intent = new Intent();
-                intent.setClass(mActivity, WebViewActivity.class);
-                intent.putExtra(WebViewActivity.URL, news.article_url);
+                String itemId = news.item_id;
+                StringBuffer urlSb = new StringBuffer("http://m.toutiao.com/i");
+                urlSb.append(itemId).append("/info/");
+                String url = urlSb.toString();//http://m.toutiao.com/i6412427713050575361/info/
+                Intent intent = null;
+                if (news.has_video) {
+                    UIUtils.showToast("该功能暂未开放.......");
+                    return;
+                    //视频
+//                    intent = new Intent(mActivity, VideoDetailActivity.class);
+//                    if (JCVideoPlayerManager.getCurrentJcvd() != null) {
+//                        JCVideoPlayerStandard videoPlayer = (JCVideoPlayerStandard) JCVideoPlayerManager.getCurrentJcvd();
+//                        //传递进度
+//                        int progress = JCMediaManager.instance().mediaPlayer.getCurrentPosition();
+//                        if (progress != 0) {
+//                            intent.putExtra(VideoDetailActivity.PROGRESS, progress);
+//                        }
+//                    }
+                } else {
+                    //非视频新闻
+                    if (news.article_type == 1) {
+                        //如果article_type为1，则是使用WebViewActivity打开
+                        intent = new Intent(mActivity, WebViewActivity.class);
+                        intent.putExtra(WebViewActivity.URL, news.article_url);
+                        startActivity(intent);
+                        return;
+                    }
+                    //其他新闻
+                    intent = new Intent(mActivity, NewsDetailActivity.class);
+                }
+
+                intent.putExtra(NewsDetailBaseActivity.CHANNEL_CODE, mChannelCode);
+                intent.putExtra(NewsDetailBaseActivity.POSITION, position);
+
+                intent.putExtra(NewsDetailBaseActivity.DETAIL_URL, url);
+                intent.putExtra(NewsDetailBaseActivity.GROUP_ID, news.group_id);
+                intent.putExtra(NewsDetailBaseActivity.ITEM_ID, itemId);
+
                 startActivity(intent);
             }
         });
