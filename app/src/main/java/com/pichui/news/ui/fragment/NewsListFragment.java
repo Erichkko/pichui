@@ -7,16 +7,22 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.RotateAnimation;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.pi.core.uikit.bottombarlayout.BottomBarItem;
 import com.pi.core.uikit.recycleview.UniversalItemDecoration;
 import com.pi.core.uikit.view.TipView;
 import com.pi.core.util.DebugLog;
 import com.pichui.news.R;
 import com.pichui.news.app.Constant;
 import com.pichui.news.model.entity.News;
+import com.pichui.news.model.event.TabRefreshCompletedEvent;
+import com.pichui.news.model.event.TabRefreshEvent;
 import com.pichui.news.ui.activity.MainActivity;
 import com.pichui.news.ui.activity.NewsDetailActivity;
 import com.pichui.news.ui.activity.WebViewActivity;
@@ -34,6 +40,10 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,6 +68,9 @@ public class NewsListFragment extends BaseFragment <NewsListPresenter>implements
     private String mChannelCode;
     private boolean isVideoList;
     private boolean isRecommendChannel;
+    private boolean isClickTabRefreshing;
+    private RotateAnimation mRotateAnimation;
+    private boolean isHomeTabRefresh;
 
     @Override
     public void initView(View rootView) {
@@ -201,6 +214,8 @@ public class NewsListFragment extends BaseFragment <NewsListPresenter>implements
         mTipView.show(tipInfo);
         data.addAll(0, newList);
         mNewsAdapter.notifyDataSetChanged();
+
+
     }
 
     @Override
@@ -212,5 +227,62 @@ public class NewsListFragment extends BaseFragment <NewsListPresenter>implements
     public void onComplete() {
         rfLayout.finishLoadmore();
         rfLayout.finishRefresh();
+        eventLoadFinish();
+    }
+    private void eventLoadFinish(){
+        TabRefreshCompletedEvent event = new TabRefreshCompletedEvent();
+        EventBus.getDefault().post(event);//发送下拉刷新事件
+    }
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onRefreshEvent(TabRefreshEvent event) {
+        if (event.getChannelCode().equals(mChannelCode)) {
+            //如果和当前的频道码一致并且不是刷新中,进行下拉刷新
+            if (!NetWorkUtils.isNetworkAvailable(mActivity)) {
+                //网络不可用弹出提示
+                mTipView.show();
+                return;
+            }
+
+            isClickTabRefreshing = true;
+
+            if (event.isHomeTab()) {
+                //如果页签是首页，则换成就加载的图标并执行动画
+                BottomBarItem bottomBarItem = event.getBottomBarItem();
+                bottomBarItem.setIconSelectedResourceId(R.mipmap.tab_loading);//更换成加载图标
+                bottomBarItem.setStatus(true);
+
+                //播放旋转动画
+                if (mRotateAnimation == null) {
+                    mRotateAnimation = new RotateAnimation(0, 360,
+                            Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF,
+                            0.5f);
+                    mRotateAnimation.setDuration(800);
+                    mRotateAnimation.setRepeatCount(-1);
+                }
+                ImageView bottomImageView = bottomBarItem.getImageView();
+                bottomImageView.setAnimation(mRotateAnimation);
+                bottomImageView.startAnimation(mRotateAnimation);//播放旋转动画
+            }
+
+            isHomeTabRefresh = event.isHomeTab();//是否是首页
+
+            rv.scrollToPosition(0);//滚动到顶部
+            rfLayout.autoRefresh();
+
+        }
+
+
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        registerEventBus(NewsListFragment.this);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        unregisterEventBus(NewsListFragment.this);
     }
 }

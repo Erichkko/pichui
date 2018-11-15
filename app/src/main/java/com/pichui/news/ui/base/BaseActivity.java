@@ -1,19 +1,15 @@
 package com.pichui.news.ui.base;
 
-import android.annotation.SuppressLint;
+
 import android.app.Activity;
-import android.content.Intent;
+
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
-import com.pi.core.uikit.slidingLayout.SlidingLayout;
-import com.pi.core.uikit.slidingLayout.SwipeLayout;
-import com.pichui.news.R;
 import com.pichui.news.ui.activity.MainActivity;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -116,6 +112,22 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
 
     //用于创建Presenter和判断是否使用MVP模式(由子类实现)
     protected abstract T createPresenter();
+
+    public boolean isEventBusRegisted(Object subscribe) {
+        return EventBus.getDefault().isRegistered(subscribe);
+    }
+
+    public void registerEventBus(Object subscribe) {
+        if (!isEventBusRegisted(subscribe)) {
+            EventBus.getDefault().register(subscribe);
+        }
+    }
+
+    public void unregisterEventBus(Object subscribe) {
+        if (isEventBusRegisted(subscribe)) {
+            EventBus.getDefault().unregister(subscribe);
+        }
+    }
 //    @Override
 //    public void startActivity(Intent intent, Bundle options) {
 //        super.startActivity(intent, options);

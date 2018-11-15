@@ -149,7 +149,10 @@ public class HomeFragment extends BaseFragment implements OnChannelListener {
             mUnSelectedChannels.addAll(unselectedChannel);
         }
     }
-
+    public String getCurrentChannelCode(){
+        int currentItem = mViewPager.getCurrentItem();
+        return mSelectedChannels.get(currentItem).channelCode;
+    }
     /**
      * 初始化已选频道的fragment的集合
      */

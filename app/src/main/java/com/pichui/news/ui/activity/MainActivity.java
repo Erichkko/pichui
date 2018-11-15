@@ -17,6 +17,8 @@ import com.pi.core.uikit.bottombarlayout.BottomBarLayout;
 import com.pi.core.uikit.statusbar.Eyes;
 import com.pi.core.uikit.view.NoScrollViewPager;
 import com.pichui.news.R;
+import com.pichui.news.model.event.TabRefreshCompletedEvent;
+import com.pichui.news.model.event.TabRefreshEvent;
 import com.pichui.news.ui.adapter.base.MainTabAdapter;
 import com.pichui.news.ui.base.BaseActivity;
 import com.pichui.news.ui.base.BaseFragment;
@@ -28,6 +30,10 @@ import com.pichui.news.ui.fragment.NewsListFragment;
 import com.pichui.news.ui.fragment.TabFragment;
 import com.pichui.news.ui.fragment.VideoFragment;
 import com.pichui.news.uitil.UIUtils;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -97,7 +103,11 @@ public class MainActivity extends BaseActivity {
                 if (currentPosition == 0) {
                     //如果是第一个，即首页
                     if (previousPosition == currentPosition) {
-                        startTabLoading(bottomBarItem,currentPosition);
+                        //如果当前页码和点击的页码一致,进行下拉刷新
+                        String channelCode = "";
+                        channelCode = ((HomeFragment) mFragmentList.get(0)).getCurrentChannelCode();//获取到首页当前显示的fragment的频道
+//                        startTabLoading(bottomBarItem,currentPosition);
+                        postTabRefreshEvent(bottomBarItem,currentPosition,channelCode);
                         return;
                     }
                 }
@@ -117,7 +127,16 @@ public class MainActivity extends BaseActivity {
     }
 
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onRefreshCompletedEvent(TabRefreshCompletedEvent event) {
+        //接收到刷新完成的事件，取消旋转动画，更换底部首页页签图标
+        BottomBarItem bottomItem = mBottomBarLayout.getBottomItem(0);
 
+        cancelTabLoading(bottomItem);//停止旋转动画
+
+        bottomItem.setIconSelectedResourceId(R.mipmap.tab_home_selected);//更换成首页原来图标
+        bottomItem.setStatus(true);//刷新图标
+    }
 
 
     private void startTabLoading(final BottomBarItem bottomBarItem,final int currentPosition){
@@ -165,5 +184,36 @@ public class MainActivity extends BaseActivity {
         }else{
             Eyes.setStatusBarColor(MainActivity.this, UIUtils.getColor(mStatusColors[position]));
         }
+    }
+
+
+    private void postTabRefreshEvent(BottomBarItem bottomBarItem, int position, String channelCode) {
+        TabRefreshEvent event = new TabRefreshEvent();
+        event.setChannelCode(channelCode);
+        event.setBottomBarItem(bottomBarItem);
+        event.setHomeTab(position == 0);
+        EventBus.getDefault().post(event);//发送下拉刷新事件
+    }
+
+//    @Subscribe(threadMode = ThreadMode.MAIN)
+//    public void onRefreshCompletedEvent(TabRefreshCompletedEvent event) {
+//        //接收到刷新完成的事件，取消旋转动画，更换底部首页页签图标
+//        BottomBarItem bottomItem = mBottomBarLayout.getBottomItem(0);
+//
+//        cancelTabLoading(bottomItem);//停止旋转动画
+//
+//        bottomItem.setIconSelectedResourceId(R.mipmap.tab_home_selected);//更换成首页原来图标
+//        bottomItem.setStatus(true);//刷新图标
+//    }
+    @Override
+    protected void onStart() {
+        super.onStart();
+        registerEventBus(MainActivity.this);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        unregisterEventBus(MainActivity.this);
     }
 }
