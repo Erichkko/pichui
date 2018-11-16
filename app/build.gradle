@@ -11,6 +11,13 @@ android {
         versionCode 1
         versionName "1.0"
         multiDexEnabled true
+        //添加了javaCompileOptions
+        javaCompileOptions {
+            annotationProcessorOptions {
+                includeCompileClasspath = true
+            }
+        }
+
     }
 
     compileOptions {
@@ -45,9 +52,9 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation "com.android.support:appcompat-v7:${rootProject.ext.supportVersion}"
+//    implementation "com.android.support:appcompat-v7:${rootProject.ext.supportVersion}"
     implementation "com.android.support:recyclerview-v7:${rootProject.ext.supportVersion}"
-    implementation "com.android.support:support-v4:${rootProject.ext.supportVersion}"
+//    implementation "com.android.support:support-v4:${rootProject.ext.supportVersion}"
     implementation "com.android.support:design:${rootProject.ext.supportVersion}"
     implementation 'com.android.support:multidex:1.0.1'
     implementation project(':pi-uikit-lib')
@@ -58,7 +65,7 @@ dependencies {
     implementation 'com.squareup.retrofit2:retrofit:2.3.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
-    compile 'com.google.code.gson:gson:2.2.4'
+//    compile 'com.google.code.gson:gson:2.2.4'
     compile 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     //和原始的adapter相对，减少70%的代码量。
@@ -70,8 +77,6 @@ dependencies {
     compile 'com.scwang.smartrefresh:SmartRefreshHeader:1.0.4-5'
     implementation project(':jcvideoplayer-lib')
 
-    compile 'com.github.bumptech.glide:glide:4.3.0'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.3.0'
 
     implementation 'org.greenrobot:eventbus:3.1.1'
 }

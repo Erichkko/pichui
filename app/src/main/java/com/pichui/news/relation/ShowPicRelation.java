@@ -6,6 +6,7 @@ import android.webkit.JavascriptInterface;
 
 
 import com.pi.core.util.DebugLog;
+import com.pichui.news.ui.activity.ImageViewPagerActivity;
 
 
 import java.util.ArrayList;
@@ -26,10 +27,10 @@ public class ShowPicRelation {
     @JavascriptInterface
     public void openImg(String url){
 //        //传到展示图片的viewPager
-//        Intent intent = new Intent(mContext, ImageViewPagerActivity.class);
-//        intent.putExtra(ImageViewPagerActivity.POSITION,mUrls.indexOf(url));
-//        intent.putStringArrayListExtra(ImageViewPagerActivity.IMG_URLS, (ArrayList<String>) mUrls);
-//        mContext.startActivity(intent);
+        Intent intent = new Intent(mContext, ImageViewPagerActivity.class);
+        intent.putExtra(ImageViewPagerActivity.POSITION,mUrls.indexOf(url));
+        intent.putStringArrayListExtra(ImageViewPagerActivity.IMG_URLS, (ArrayList<String>) mUrls);
+        mContext.startActivity(intent);
     }
 
     /**页面加载时JS调用的Java代码*/

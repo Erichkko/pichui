@@ -25,6 +25,7 @@ public class GlideUtils {
                 .into(iv);
     }
 
+
     public static void load(Context context, String url, ImageView iv, int placeHolderResId) {
         if (placeHolderResId == -1) {
             Glide.with(context)

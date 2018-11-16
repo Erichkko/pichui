@@ -9,7 +9,6 @@ android {
         versionCode 1
         versionName "1.0"
 
-
     }
 
     buildTypes {
@@ -26,6 +25,8 @@ dependencies {
     implementation "com.android.support:appcompat-v7:${rootProject.ext.supportVersion}"
     implementation "com.android.support:design:${rootProject.ext.supportVersion}"
 
-    compile 'com.google.code.gson:gson:2.2.4'
+    compile 'com.google.code.gson:gson:2.8.2'
+    compile 'com.github.chrisbanes:PhotoView:2.1.3'
+    compile 'com.sunfusheng:glideimageview:1.2.0'
 
 }
