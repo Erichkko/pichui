@@ -7,6 +7,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.github.nukc.stateview.StateView;
+import com.pichui.news.R;
+
 import org.greenrobot.eventbus.EventBus;
 
 import butterknife.ButterKnife;
@@ -20,6 +23,7 @@ public abstract class BaseFragment<T extends BasePresenter> extends LazyLoadFrag
     protected T mPresenter;
     protected Activity mActivity;
     private Unbinder unbinder;
+    protected StateView mStateView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -32,6 +36,12 @@ public abstract class BaseFragment<T extends BasePresenter> extends LazyLoadFrag
         if (rootView == null) {
             rootView = inflater.inflate(provideContentViewId(),container,false);
             unbinder = ButterKnife.bind(this, rootView);
+
+            mStateView = StateView.inject(getStateViewRoot());
+            if (mStateView != null){
+                mStateView.setLoadingResource(R.layout.page_loading);
+                mStateView.setRetryResource(R.layout.page_net_error);
+            }
             initView(rootView);
             initData();
             initListener();
@@ -99,6 +109,12 @@ public abstract class BaseFragment<T extends BasePresenter> extends LazyLoadFrag
 
     //用于创建Presenter和判断是否使用MVP模式(由子类实现)
     protected abstract T createPresenter();
+
+    /**StateView的根布局，默认是整个界面，如果需要变换可以重写此方法*/
+    public View getStateViewRoot() {
+        return rootView;
+    }
+
     public boolean isEventBusRegisted(Object subscribe) {
         return EventBus.getDefault().isRegistered(subscribe);
     }

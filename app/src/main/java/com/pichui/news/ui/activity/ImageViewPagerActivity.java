@@ -17,6 +17,7 @@ import com.bumptech.glide.request.target.Target;
 import com.pi.core.uikit.statusbar.Eyes;
 import com.pi.core.util.DebugLog;
 import com.pichui.news.R;
+import com.pichui.news.listener.PermissionListener;
 import com.pichui.news.ui.adapter.base.ImageViewPagerAdapter;
 import com.pichui.news.ui.base.BaseActivity;
 import com.pichui.news.ui.base.BasePresenter;
@@ -128,18 +129,18 @@ public class ImageViewPagerActivity extends BaseActivity implements ViewPager.On
 
     @OnClick(R.id.tv_save)
     public void onViewClicked() {
-//        requestRuntimePermission(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, new PermissionListener() {
-//            @Override
-//            public void onGranted() {
-//                //保存图片
-//                downloadImg();
-//            }
-//
-//            @Override
-//            public void onDenied(List<String> deniedPermissions) {
-//                UIUtils.showToast(getString(R.string.write_storage_permission_deny));
-//            }
-//        });
+        requestRuntimePermission(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, new PermissionListener() {
+            @Override
+            public void onGranted() {
+                //保存图片
+                downloadImg();
+            }
+
+            @Override
+            public void onDenied(List<String> deniedPermissions) {
+                UIUtils.showToast(getString(R.string.write_storage_permission_deny));
+            }
+        });
     }
 
     private void downloadImg() {

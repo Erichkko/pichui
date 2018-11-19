@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.github.nukc.stateview.StateView;
 import com.pi.core.uikit.bottombarlayout.BottomBarItem;
 import com.pi.core.uikit.recycleview.UniversalItemDecoration;
 import com.pi.core.uikit.view.TipView;
@@ -25,6 +26,7 @@ import com.pichui.news.model.event.TabRefreshCompletedEvent;
 import com.pichui.news.model.event.TabRefreshEvent;
 import com.pichui.news.ui.activity.MainActivity;
 import com.pichui.news.ui.activity.NewsDetailActivity;
+import com.pichui.news.ui.activity.SplashActivity;
 import com.pichui.news.ui.activity.WebViewActivity;
 import com.pichui.news.ui.adapter.news.MultipleItem;
 import com.pichui.news.ui.adapter.news.NewsListAdapter;
@@ -34,6 +36,7 @@ import com.pichui.news.ui.base.BaseFragment;
 import com.pichui.news.ui.base.NewsDetailBaseActivity;
 import com.pichui.news.ui.iview.lNewsListView;
 import com.pichui.news.ui.presenter.NewsListPresenter;
+import com.pichui.news.uitil.ListUtils;
 import com.pichui.news.uitil.NetWorkUtils;
 import com.pichui.news.uitil.UIUtils;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -92,7 +95,12 @@ public class NewsListFragment extends BaseFragment <NewsListPresenter>implements
                 return decoration;
             }
         });
-
+        mStateView.setOnRetryClickListener(new StateView.OnRetryClickListener() {
+            @Override
+            public void onRetryClick() {
+                refreshData();
+            }
+        });
     }
 
     private void refreshData() {
@@ -124,7 +132,15 @@ public class NewsListFragment extends BaseFragment <NewsListPresenter>implements
     @Override
     protected void loadData() {
         DebugLog.e("NewsListFragment loadData....");
-        rfLayout.autoRefresh();
+        mStateView.showLoading();
+        UIUtils.postTaskDelay(new Runnable() {
+            @Override
+            public void run() {
+                refreshData();
+            }
+        },2000);
+
+
     }
 
     @Override
@@ -136,6 +152,7 @@ public class NewsListFragment extends BaseFragment <NewsListPresenter>implements
                     //网络不可用弹出提示
                     mTipView.show();
                     refreshlayout.finishRefresh();
+
                     return;
                 }
                 refreshData();
@@ -212,8 +229,19 @@ public class NewsListFragment extends BaseFragment <NewsListPresenter>implements
     @Override
     public void onGetNewsListSuccess(List<News> newList, String tipInfo) {
         mTipView.show(tipInfo);
+
+        //如果是第一次获取数据
+
+        if (ListUtils.isEmpty(newList)) {
+            //获取不到数据,显示空布局
+            mStateView.showEmpty();
+            return;
+        }
+        mStateView.showContent();//显示内容
+
         data.addAll(0, newList);
         mNewsAdapter.notifyDataSetChanged();
+
 
 
     }
@@ -221,6 +249,10 @@ public class NewsListFragment extends BaseFragment <NewsListPresenter>implements
     @Override
     public void onError() {
         mTipView.show();
+        if (ListUtils.isEmpty(data)) {
+            //如果一开始进入没有数据
+            mStateView.showRetry();//显示重试的布局
+        }
     }
 
     @Override
