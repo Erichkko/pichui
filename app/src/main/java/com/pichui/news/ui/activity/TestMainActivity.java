@@ -8,6 +8,7 @@ import android.view.View;
 
 import com.pi.core.uikit.recycleview.RecyclerViewClickListener;
 import com.pi.core.uikit.recycleview.UniversalItemDecoration;
+import com.pi.core.uikit.recycleview.galleryrecyclerview.GalleryRecyclerView;
 import com.pi.core.util.DebugLog;
 import com.pichui.news.R;
 import com.pichui.news.ui.adapter.test.TestMainAdpter;
@@ -73,6 +74,14 @@ public class TestMainActivity extends BaseActivity {
                         intent.setClass(TestMainActivity.this, TestGridActivity.class);
                         startActivity(intent);
                         break;
+                     case "GalleryRecycleview":
+                        intent.setClass(TestMainActivity.this, GalleryActivity.class);
+                        startActivity(intent);
+                        break;
+                     case "bottomDialog":
+                        intent.setClass(TestMainActivity.this, BottomDialogActivity.class);
+                        startActivity(intent);
+                        break;
                     default:
                         UIUtils.showToast("暂未开放相关功能！");
                         break;
@@ -90,10 +99,20 @@ public class TestMainActivity extends BaseActivity {
         tm1.set_id(1);
         tm1.setTitle("Recycleview");
         TestMainModel tm2 = new TestMainModel();
-        tm2.set_id(1);
-        tm2.setTitle("Recycleview1");
+        tm2.set_id(2);
+        tm2.setTitle("Recycleview2");
+
+        TestMainModel tm3 = new TestMainModel();
+        tm3.set_id(3);
+        tm3.setTitle("GalleryRecycleview");
+
+        TestMainModel tm4 = new TestMainModel();
+        tm4.set_id(4);
+        tm4.setTitle("bottomDialog");
 
         mData.add(tm1);
         mData.add(tm2);
+        mData.add(tm3);
+        mData.add(tm4);
     }
 }

@@ -77,7 +77,7 @@ public class NewsListFragment extends BaseFragment <NewsListPresenter>implements
 
     @Override
     public void initView(View rootView) {
-        DebugLog.e("NewsListFragment  initView....");
+//        DebugLog.e("NewsListFragment  initView....");
 
         final LinearLayoutManager manager = new LinearLayoutManager(mActivity);
         rv.setLayoutManager(manager);
@@ -114,8 +114,8 @@ public class NewsListFragment extends BaseFragment <NewsListPresenter>implements
     public void initData() {
         mChannelCode = getArguments().getString(Constant.CHANNEL_CODE);
         isVideoList = getArguments().getBoolean(Constant.IS_VIDEO_LIST, false);
-        DebugLog.e("mChannelCode == "+mChannelCode);
-        DebugLog.e("isVideoList == "+isVideoList);
+//        DebugLog.e("mChannelCode == "+mChannelCode);
+//        DebugLog.e("isVideoList == "+isVideoList);
 
         String[] channelCodes = UIUtils.getStringArr(R.array.channel_code);
         isRecommendChannel = mChannelCode.equals(channelCodes[0]);//是否是推荐频道
@@ -131,7 +131,7 @@ public class NewsListFragment extends BaseFragment <NewsListPresenter>implements
 
     @Override
     protected void loadData() {
-        DebugLog.e("NewsListFragment loadData....");
+//        DebugLog.e("NewsListFragment loadData....");
         mStateView.showLoading();
         UIUtils.postTaskDelay(new Runnable() {
             @Override

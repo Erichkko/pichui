@@ -1,0 +1,28 @@
+[
+    {
+      "name": "微信",
+      "icon": "share_wechat_solid",
+      "id": 1
+    },{
+      "name": "朋友圈",
+      "icon": "share_weixin_friends_solid",
+      "id": 2
+    },{
+      "name": "微博",
+      "icon": "share_weibo_solid",
+      "id": 3
+    },{
+      "name": "QQ",
+      "icon": "share_qq_solid",
+      "id": 4
+    },{
+      "name": "QQ空间",
+      "icon": "share_qqzone_solid",
+      "id": 5
+    },{
+      "name": "微信1",
+      "icon": "share_wechat_solid",
+      "id": 6
+    }
+
+]

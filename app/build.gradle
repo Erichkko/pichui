@@ -44,7 +44,8 @@ android {
                             'src/main/res/home',
                             'src/main/res/video',
                             'src/main/res/micro',
-                            'src/main/res/mine'
+                            'src/main/res/mine',
+                            'src/main/res/test'
                     ]//res 目录的拆分
         }
     }
@@ -71,13 +72,12 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     //和原始的adapter相对，减少70%的代码量。
     compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
-    //指示器
-    compile 'com.github.hackware1993:MagicIndicator:1.5.0'
+
     //刷新
     compile 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.4-5'
     compile 'com.scwang.smartrefresh:SmartRefreshHeader:1.0.4-5'
     implementation project(':jcvideoplayer-lib')
 
-
+    compile 'me.leolin:ShortcutBadger:1.1.4@aar'
     implementation 'org.greenrobot:eventbus:3.1.1'
 }

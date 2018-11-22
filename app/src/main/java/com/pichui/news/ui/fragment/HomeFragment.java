@@ -157,7 +157,7 @@ public class HomeFragment extends BaseFragment implements OnChannelListener {
      * 初始化已选频道的fragment的集合
      */
     private void initChannelFragments() {
-        DebugLog.e("initChannelFragments");
+//        DebugLog.e("initChannelFragments");
         mChannelCodes = getResources().getStringArray(R.array.channel_code);
         for (Channel channel : mSelectedChannels) {
             NewsListFragment newsFragment = new NewsListFragment();

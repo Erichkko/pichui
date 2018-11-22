@@ -29,6 +29,8 @@
         <activity android:name=".ui.activity.WebViewActivity" />
         <activity android:name=".ui.activity.NewsDetailActivity" />
         <activity android:name=".ui.activity.ImageViewPagerActivity" />
+        <activity android:name=".ui.activity.GalleryActivity" />
+        <activity android:name=".ui.activity.BottomDialogActivity" />
 
         <service android:name=".ui.service.DownloadIntentService" />
     </application>

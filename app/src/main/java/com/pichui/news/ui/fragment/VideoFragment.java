@@ -17,7 +17,7 @@ public class VideoFragment extends BaseFragment {
 
     @Override
     public void initData() {
-        DebugLog.e("VideoFragment...initData");
+//        DebugLog.e("VideoFragment...initData");
     }
     @Override
     protected BasePresenter createPresenter() {

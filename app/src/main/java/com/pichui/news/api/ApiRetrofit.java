@@ -76,12 +76,12 @@ public class ApiRetrofit {
             long duration = endTime - startTime;
             okhttp3.MediaType mediaType = response.body().contentType();
             String content = response.body().string();
-            DebugLog.e("----------Request Start----------------");
-            DebugLog.e("| " + request.toString());
-            DebugLog.e("----------Response Start----------------");
-            DebugLog.e( content);
-            DebugLog.e("----------Response Start----------------");
-            DebugLog.e("----------Request End:" + duration + "毫秒----------");
+//            DebugLog.e("----------Request Start----------------");
+//            DebugLog.e("| " + request.toString());
+//            DebugLog.e("----------Response Start----------------");
+//            DebugLog.e( content);
+//            DebugLog.e("----------Response Start----------------");
+//            DebugLog.e("----------Request End:" + duration + "毫秒----------");
             return response.newBuilder()
                     .body(okhttp3.ResponseBody.create(mediaType, content))
                     .build();

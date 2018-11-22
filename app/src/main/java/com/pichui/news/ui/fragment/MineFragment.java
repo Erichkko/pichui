@@ -5,6 +5,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.pi.core.uikit.bottomdialog.BottomDialog;
 import com.pi.core.util.DebugLog;
 import com.pichui.news.R;
 import com.pichui.news.ui.activity.TestMainActivity;
@@ -15,6 +16,7 @@ import com.pichui.news.ui.adapter.mine.MineMoelEntity;
 
 import com.pichui.news.ui.base.BaseFragment;
 import com.pichui.news.ui.base.BasePresenter;
+import com.pichui.news.uitil.ShortcutBadgerUtil;
 import com.pichui.news.uitil.UIUtils;
 
 import java.util.ArrayList;
@@ -33,6 +35,7 @@ public class MineFragment extends BaseFragment {
     public RecyclerView rv;
     private MineAdapter mAdapter;
     List<MineMoelEntity> mineMoelEntities;
+
     @Override
     protected int provideContentViewId() {
         return  R.layout.fragment_mine;
@@ -45,7 +48,7 @@ public class MineFragment extends BaseFragment {
 
     @Override
     public void initData() {
-        DebugLog.e("initData");
+//        DebugLog.e("initData");
     }
 
     @Override
@@ -78,8 +81,12 @@ public class MineFragment extends BaseFragment {
                 DebugLog.e("model type== "+model.getType());
                 switch (model.getTitle()){
                     case "测试代码":
+                        ShortcutBadgerUtil.setBadgeCount(mActivity,10);
                         intent.setClass(mActivity, TestMainActivity.class);
                         mActivity.startActivity(intent);
+                        break;
+                    case "测试代码1":
+
                         break;
                     default:
                         UIUtils.showToast("暂未开放相关功能！");
@@ -88,8 +95,9 @@ public class MineFragment extends BaseFragment {
 
             }
         });
-
     }
+
+
     private List<MineMoelEntity> stuctData(){
         List<MineMoelEntity> list = new ArrayList<>();
         MineMoelEntity entity1 = new MineMoelEntity();
@@ -145,6 +153,12 @@ public class MineFragment extends BaseFragment {
 
         model7.setType("1");
         models3.add(model7);
+
+        MineModel model8 = new MineModel();
+        model8.setTitle("测试代码1");
+
+        model8.setType("1");
+        models3.add(model8);
 
         entity3.setModelList(models3);
 
