@@ -68,8 +68,12 @@ public class CircleTextProgressbarActivity extends BaseActivity {
      */
     @BindView(R.id.tv_red_progress_text1)
     public CircleTextProgressbar mTvProgressBar1;
+
     @BindView(R.id.tv_red_progress_text2)
     public CircleTextProgressbar mTvProgressBar2;
+
+    @BindView(R.id.tv_red_progress_text3)
+    public CircleTextProgressbar mTvProgressBar3;
 
 
     @Override
@@ -102,6 +106,11 @@ public class CircleTextProgressbarActivity extends BaseActivity {
 
         mTvProgressBar2.setCountdownProgressListener(2, progressListener);
 
+        mTvProgressBar3.setCountdownProgressListener(3, progressListener);
+        mTvProgressBar3.setTimeMillis(5000);// 把倒计时时间改长一点。
+        mTvProgressBar3.setText("5秒");
+        mTvProgressBar3.setProgress(100);
+
         mTvSkip.setOutLineColor(Color.TRANSPARENT);
         mTvSkip.setInCircleColor(Color.parseColor("#AAC6C6C6"));
         mTvSkip.setProgressColor(Color.DKGRAY);
@@ -119,6 +128,11 @@ public class CircleTextProgressbarActivity extends BaseActivity {
                 mTvProgressBar1.setText(progress + "%");
             } else if (what == 2) {
                 mTvProgressBar2.setText(progress + "%");
+            } else if (what == 3) {
+                mTvProgressBar3.setText((progress+20)/20 + "秒");
+                if (progress == 0){
+                    mTvProgressBar3.setText("跳转");
+                }
             }
             // 比如在首页，这里可以判断进度，进度到了100或者0的时候，你可以做跳过操作。
         }
@@ -139,6 +153,7 @@ public class CircleTextProgressbarActivity extends BaseActivity {
                 mTvRedCircle.reStart();
                 mTvProgressBar1.reStart();
                 mTvProgressBar2.reStart();
+                mTvProgressBar3.reStart();
                 mTvSkip.reStart();
                 break;
         }

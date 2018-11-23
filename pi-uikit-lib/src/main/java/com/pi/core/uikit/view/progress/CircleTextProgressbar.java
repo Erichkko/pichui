@@ -33,9 +33,7 @@ import android.widget.TextView;
 import com.pi.uikit.R;
 
 /**
- * Created on 2016/7/12.
  *
- * @author Yan Zhenjie.
  */
 @SuppressLint("AppCompatCustomView")
 public class CircleTextProgressbar extends TextView {

@@ -122,6 +122,13 @@
                 android:onClick="onClick"
                 android:text="100%"
                 app:in_circle_color="@color/state_color" />
+
+            <com.pi.core.uikit.view.progress.CircleTextProgressbar
+                android:id="@+id/tv_red_progress_text3"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:onClick="onClick"
+                app:in_circle_color="@color/state_color" />
         </LinearLayout>
     </LinearLayout>
     </LinearLayout>
