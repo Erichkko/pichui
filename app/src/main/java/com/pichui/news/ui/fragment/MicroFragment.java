@@ -21,7 +21,7 @@ public class MicroFragment extends BaseFragment {
 
     @Override
     public void initData() {
-        DebugLog.e("MicroFragment...initData");
+//        DebugLog.e("MicroFragment...initData");
     }
     @Override
     protected BasePresenter createPresenter() {

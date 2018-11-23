@@ -31,6 +31,8 @@
         <activity android:name=".ui.activity.ImageViewPagerActivity" />
         <activity android:name=".ui.activity.GalleryActivity" />
         <activity android:name=".ui.activity.BottomDialogActivity" />
+        <activity android:name=".ui.activity.CustomeViewActivity" />
+        <activity android:name=".ui.activity.CircleTextProgressbarActivity" />
 
         <service android:name=".ui.service.DownloadIntentService" />
     </application>

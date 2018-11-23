@@ -115,5 +115,7 @@
         <attr name="dividerMarginLeft" format="dimension"/>
         <attr name="dividerMarginRight" format="dimension"/>
     </declare-styleable>
-
+    <declare-styleable name="CircleTextProgressbar">
+        <attr name="in_circle_color" format="color" />
+    </declare-styleable>
 </resources>

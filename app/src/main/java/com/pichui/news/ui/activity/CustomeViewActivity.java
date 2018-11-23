@@ -5,16 +5,27 @@ import android.graphics.Color;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Toast;
 
+import com.pi.core.uikit.bottomdialog.BaseBottomDialog;
+import com.pi.core.uikit.bottomdialog.BottomDialog;
+import com.pi.core.uikit.bottomdialog.BottomDialog1;
+import com.pi.core.uikit.bottomdialog.BottomTipDialog;
+import com.pi.core.uikit.bottomdialog.SingleHorizontalBottomDialog;
+import com.pi.core.uikit.bottomdialog.ViewPagerBottomDialog;
+import com.pi.core.uikit.bottomdialog.listener.OutsideClickListener;
+import com.pi.core.uikit.bottomdialog.model.Item;
 import com.pi.core.uikit.recycleview.RecyclerViewClickListener;
 import com.pi.core.uikit.recycleview.UniversalItemDecoration;
-import com.pi.core.uikit.recycleview.galleryrecyclerview.GalleryRecyclerView;
+import com.pi.core.uikit.view.progress.CircleTextProgressbar;
 import com.pi.core.util.DebugLog;
 import com.pichui.news.R;
 import com.pichui.news.ui.adapter.test.TestMainAdpter;
 import com.pichui.news.ui.adapter.test.TestMainModel;
 import com.pichui.news.ui.base.BaseActivity;
 import com.pichui.news.ui.base.BasePresenter;
+import com.pichui.news.uitil.JsonUtils;
+import com.pichui.news.uitil.ShortcutBadgerUtil;
 import com.pichui.news.uitil.UIUtils;
 
 import java.util.ArrayList;
@@ -22,11 +33,12 @@ import java.util.List;
 
 import butterknife.BindView;
 
-public class TestMainActivity extends BaseActivity {
+public class CustomeViewActivity extends BaseActivity {
     @BindView(R.id.rv)
     public RecyclerView rv;
     List<TestMainModel> mData = new ArrayList<>();
     private TestMainAdpter mAdapter;
+
 
 
     @Override
@@ -70,22 +82,27 @@ public class TestMainActivity extends BaseActivity {
                 DebugLog.e("position = "+position);
                 TestMainModel testMainModel = mData.get(position);
                 switch (testMainModel.getTitle()){
-                    case "Recycleview":
-                        intent.setClass(TestMainActivity.this, TestGridActivity.class);
+                    case "CircleTextProgressbar":
+                        intent.setClass(CustomeViewActivity.this, CircleTextProgressbarActivity.class);
                         startActivity(intent);
                         break;
-                     case "GalleryRecycleview":
-                        intent.setClass(TestMainActivity.this, GalleryActivity.class);
-                        startActivity(intent);
-                        break;
-                     case "bottomDialog":
-                        intent.setClass(TestMainActivity.this, BottomDialogActivity.class);
-                        startActivity(intent);
-                        break;
+                    case "bottom2":
 
-                        case "customeView":
-                        intent.setClass(TestMainActivity.this, CustomeViewActivity.class);
-                        startActivity(intent);
+                        break;
+                    case "bottom3":
+
+                        break;
+                        case "bottomTip":
+
+                        break;
+                        case "bottomSingleHorizontal":
+
+                            break;
+                        case "bottomSingleHorizontal2":
+
+                        break;
+                        case "bottomViewpager":
+
                         break;
                     default:
                         UIUtils.showToast("暂未开放相关功能！");
@@ -98,31 +115,44 @@ public class TestMainActivity extends BaseActivity {
 
             }
         }));
+
     }
     private void structModel(){
         TestMainModel tm1 = new TestMainModel();
         tm1.set_id(1);
-        tm1.setTitle("Recycleview");
+        tm1.setTitle("CircleTextProgressbar");
         TestMainModel tm2 = new TestMainModel();
         tm2.set_id(2);
-        tm2.setTitle("Recycleview2");
+        tm2.setTitle("bottom2");
 
         TestMainModel tm3 = new TestMainModel();
         tm3.set_id(3);
-        tm3.setTitle("GalleryRecycleview");
+        tm3.setTitle("bottom3");
 
         TestMainModel tm4 = new TestMainModel();
         tm4.set_id(4);
-        tm4.setTitle("bottomDialog");
+        tm4.setTitle("bottomTip");
 
         TestMainModel tm5 = new TestMainModel();
         tm5.set_id(5);
-        tm5.setTitle("customeView");
+        tm5.setTitle("bottomSingleHorizontal");
+
+        TestMainModel tm6 = new TestMainModel();
+        tm6.set_id(6);
+        tm6.setTitle("bottomSingleHorizontal2");
+
+        TestMainModel tm7 = new TestMainModel();
+        tm7.set_id(7);
+        tm7.setTitle("bottomViewpager");
 
         mData.add(tm1);
         mData.add(tm2);
         mData.add(tm3);
         mData.add(tm4);
         mData.add(tm5);
+        mData.add(tm6);
+        mData.add(tm7);
     }
+
+
 }
